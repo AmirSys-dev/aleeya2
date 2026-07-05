@@ -842,6 +842,18 @@
             <!-- SECTION F: MINI GAME -->
             <div id="main-game" class="main-section hidden">
                 <main class="relative z-10 pt-32 pb-32 px-4 md:px-margin-edge min-h-screen flex flex-col items-center justify-center">
+                    
+                    <!-- Game Mode Switcher -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full max-w-lg z-10 font-label-mono text-label-mono text-xs md:text-sm">
+                        <button id="mode-btn-quiz" class="flex-1 py-3 border border-primary text-primary bg-primary/10 uppercase font-bold cursor-pointer transition-all active:scale-95" onclick="toggleGameMode('quiz')">
+                            [ DECIPHER: JEFF QUIZ ]
+                        </button>
+                        <button id="mode-btn-cctv" class="flex-1 py-3 border border-[#393939] text-on-surface-variant hover:border-primary hover:text-primary uppercase cursor-pointer transition-all active:scale-95" onclick="toggleGameMode('cctv')">
+                            [ SURVIVOR: CCTV SURVIVAL ]
+                        </button>
+                    </div>
+
+                    <!-- CONTAINER 1: JEFF QUIZ -->
                     <div class="w-full max-w-lg bg-surface-container-lowest border border-outline-variant p-6 relative flex flex-col items-center gap-8 shadow-[inset_0_0_20px_rgba(139,0,0,0.1)] transition-all duration-300" id="game-container">
                         <div class="absolute top-0 left-0 w-full h-1 bg-surface-variant">
                             <div class="h-full bg-primary-container w-[10%] transition-all duration-300" id="progress-bar"></div>
@@ -849,7 +861,7 @@
                         <div class="w-full flex justify-between items-center border-b border-[#353535] pb-4">
                             <div class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2">
                                 <span class="material-symbols-outlined text-primary animate-pulse">lock</span>
-                                SECURITY_DECIPHER
+                                JEFF_DECIPHER
                             </div>
                             <div class="font-label-mono text-label-mono text-primary font-bold" id="progress-text">1 / 5</div>
                         </div>
@@ -865,7 +877,8 @@
 
                         <!-- Sprite Viewport -->
                         <div class="w-48 h-64 border border-[#353535] relative overflow-hidden bg-black flex items-center justify-center group">
-                            <img alt="Sprite viewport" class="w-full h-full object-cover grayscale brightness-90 contrast-125 filter transition-all duration-500" id="game-sprite" src="./photos/aleeya1.jpg" />
+                            <!-- Show Jeff the Killer portrait in the viewport instead of the girl -->
+                            <img alt="Sprite viewport" class="w-full h-full object-cover grayscale brightness-90 contrast-125 filter transition-all duration-500" id="game-sprite" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs" />
                             <div class="absolute inset-0 bg-red-950/20 mix-blend-color"></div>
                         </div>
 
@@ -874,6 +887,71 @@
                             <!-- Questions rendered dynamically -->
                         </div>
                     </div>
+
+                    <!-- CONTAINER 2: CCTV SURVIVAL (FNAF-style) -->
+                    <div class="w-full max-w-2xl bg-surface-container-lowest border border-outline-variant p-6 relative flex flex-col gap-6 shadow-[inset_0_0_20px_rgba(0,0,0,0.9)] transition-all duration-300 hidden" id="cctv-container">
+                        <!-- Top status bar -->
+                        <div class="w-full flex justify-between items-center border-b border-[#353535] pb-4">
+                            <div class="font-label-mono text-label-mono text-primary flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary animate-pulse-fast">videocam</span>
+                                SURVEILLANCE FEED: ACTIVE
+                            </div>
+                            <div class="flex gap-6 font-label-mono text-label-mono text-xs md:text-sm">
+                                <div>POWER: <span class="text-error font-bold" id="cctv-power">100</span>%</div>
+                                <div>TIME: <span class="text-primary font-bold" id="cctv-time">40</span>s</div>
+                            </div>
+                        </div>
+
+                        <!-- Monitor screen view -->
+                        <div class="w-full aspect-video bg-black border border-[#353535] relative overflow-hidden flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,1)]">
+                            <!-- Screen Static and Glitch Filter overlay -->
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg viewBox=&quot;0 0 200 200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><filter id=&quot;noiseFilter&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.85&quot; numOctaves=&quot;3&quot; stitchTiles=&quot;stitch&quot;/></filter><rect width=&quot;100%&quot; height=&quot;100%&quot; filter=&quot;url(%23noiseFilter)&quot;/></svg>')] opacity-15 mix-blend-overlay pointer-events-none z-20"></div>
+                            
+                            <!-- Active Cam Image View -->
+                            <div class="w-full h-full bg-cover bg-center grayscale filter brightness-75 contrast-125 transition-all duration-300" id="cctv-monitor-feed" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
+                            
+                            <!-- Static Noise overlay when switching Cams -->
+                            <div id="cctv-static" class="absolute inset-0 bg-zinc-950 z-30 opacity-0 pointer-events-none flex items-center justify-center">
+                                <div class="w-full h-full bg-[url('data:image/svg+xml;utf8,<svg viewBox=&quot;0 0 200 200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><filter id=&quot;noise&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.99&quot; numOctaves=&quot;4&quot;/></filter><rect width=&quot;100%&quot; height=&quot;100%&quot; filter=&quot;url(%23noise)&quot;/></svg>')] opacity-70"></div>
+                            </div>
+
+                            <!-- Screen details -->
+                            <div class="absolute top-4 left-4 font-label-mono text-label-mono text-[10px] md:text-xs text-primary z-20 bg-black/60 px-2 py-0.5 border border-primary/20" id="cctv-cam-tag">
+                                CAM 01 // CORRIDOR
+                            </div>
+                            <div class="absolute bottom-4 left-4 font-label-mono text-label-mono text-[10px] text-red-500 animate-pulse z-20 flex items-center gap-1">
+                                <span class="h-2 w-2 rounded-full bg-red-600 inline-block animate-ping"></span> REC LIVE
+                            </div>
+                        </div>
+
+                        <!-- Camera selectors -->
+                        <div class="grid grid-cols-3 gap-2 w-full font-label-mono text-xs text-center">
+                            <button id="cam-btn-1" class="py-2.5 border border-primary text-primary bg-primary/10 font-bold cursor-pointer transition-colors" onclick="switchCCTV(1)">CAM 01 (CORRIDOR)</button>
+                            <button id="cam-btn-2" class="py-2.5 border border-[#353535] text-on-surface-variant hover:border-primary hover:text-primary transition-colors cursor-pointer" onclick="switchCCTV(2)">CAM 02 (WINDOW)</button>
+                            <button id="cam-btn-3" class="py-2.5 border border-[#353535] text-on-surface-variant hover:border-primary hover:text-primary transition-colors cursor-pointer" onclick="switchCCTV(3)">CAM 03 (DOOR)</button>
+                        </div>
+
+                        <!-- System Logs Console -->
+                        <div class="w-full bg-black border border-[#353535] p-3 h-24 font-label-mono text-[10px] md:text-xs text-[#555] overflow-y-auto flex flex-col gap-1 shadow-[inset_0_0_10px_rgba(0,0,0,1)]" id="cctv-log-console">
+                            <div>[SYSTEM] INTRODUCTORY SEQUENCE... READY.</div>
+                            <div>[SYSTEM] PRESS "START SURVIVAL" TO BEGIN SHIFT.</div>
+                        </div>
+
+                        <!-- Start and Defense controls -->
+                        <div class="w-full flex flex-col gap-3">
+                            <button id="cctv-start-btn" class="w-full py-4 bg-primary text-on-primary font-label-mono text-label-mono font-bold tracking-widest hover:bg-error hover:text-white transition-colors cursor-pointer uppercase text-center" onclick="startCCTVSurvival()">
+                                START SURVIVAL
+                            </button>
+                            
+                            <!-- Defense Action Buttons (Hidden until started) -->
+                            <div id="cctv-defense-grid" class="grid grid-cols-3 gap-2 w-full font-label-mono text-[10px] md:text-xs hidden">
+                                <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('stun')">STUN LIGHT</button>
+                                <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('blinds')">DRAW BLINDS</button>
+                                <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('door')">CLOSE DOOR</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </main>
             </div>
 
@@ -924,6 +1002,9 @@
         // 1. Navigation / Router function
         function showScreen(screenId) {
             if (currentScreen === screenId) return;
+
+            // Safe cleanup for CCTV game loops
+            if (typeof resetCCTVGame === 'function') resetCCTVGame();
 
             // Trigger strobe glitch transition
             document.body.classList.add('transitioning');
@@ -1177,31 +1258,31 @@
         }
 
 
-        // 6. Progressive Math Game System
+        // 6. Progressive Math Game System - Jeff the Killer Lore Theme
         const questions = [
             {
-                q: "JIKA 100 - 32 = ?",
-                a: ["58", "68", "78"],
+                q: "SEBELUM JEFF SURUH KAU 'GO TO SLEEP', APA DIA BUAT DEKAT KELOPAK MATA DIA SENDIRI BIAR TAK BOLEH TIDO?",
+                a: ["POTONG KELOPAK MATA", "BAKAR KELOPAK MATA", "LETAK GAM GAJAH"],
                 correct: 1
             },
             {
-                q: "JIKA KAU MELIHAT 3 MATA DI JENDELA, DAN 4 MATA DI PINTU, BERAPA BANYAK YANG MEMERHATIKAN KAU?",
-                a: ["0 MATA", "7 MATA", "TIADA SESIAPA"],
-                correct: 1
-            },
-            {
-                q: "JIKA AKU BERJALAN 152 METER KE RUMAH KAU, DAN BERATKU 41 KG, BERAPA BANYAK TENAGA UNTUK BUKA PINTU BILIK KAU?",
-                a: ["41 JOULE", "152 JOULE", "TIADA LIMIT"],
+                q: "JIKA JEFF THE KILLER ADA 2 PISAU, SATU GUNA UNTUK UKIR SENYUMAN KAT PIPI DIA, SATU LAGI UNTUK SIAPA?",
+                a: ["LIU (ADIK DIA)", "MAK DIA", "KAU YANG TENGAH TENGOK NI"],
                 correct: 2
             },
             {
-                q: "JIKA 20 MAC 2010 ADALAH TARIKH LAHIRKU, BERAPA KALI AKU SUDAH BERMIMPI TENTANG KAU?",
-                a: ["16 KALI", "SETIAP MALAM", "KOSONG"],
-                correct: 1
+                q: "JIKA ADIK JEFF NAMA DIA LIU, DAN LIU CUBA LARI DARI JEFF DEKAT JALAN PUTRA SEGAMAT, BERAPA JAUH KAU RASA LIU BOLEH PERGI SEBELUM KENA KEJAR?",
+                a: ["0 METER (MATI TERUS)", "10 METER", "SAMPAI PARIT SULONG"],
+                correct: 0
             },
             {
-                q: "JIKA KAU LARI, DAN JALAN PUTRA ADA DI BELAKANG KAU, BERAPA LAMA KAU BOLEH HIDUP?",
-                a: ["0 SAAT", "1 SAAT", "1 JAM"],
+                q: "JIKA KAU DENGAR BISIKAN 'GO TO SLEEP' DEKAT BILIK KAU PUKUL 3:00 PAGI, SIAPA SEBENARNYA DEPAN KATIL KAU?",
+                a: ["JEFF THE KILLER", "NUR ALEEYA", "TIADA SESIAPA"],
+                correct: 0
+            },
+            {
+                q: "JIKA JEFF TENGAH BERDIRI DI BELAKANG KAU SEKARANG SAMBIL PEGANG PISAU, APA KENA BUAT?",
+                a: ["JANGAN PUSING BELAKANG", "TIDUR TERUS", "JERIT KAW-KAW"],
                 correct: 0
             }
         ];
@@ -1345,6 +1426,306 @@
                     </button>
                 `;
             }, 300);
+        }
+
+        // 6A. Game Mode Selector logic
+        function toggleGameMode(mode) {
+            const quizContainer = document.getElementById('game-container');
+            const cctvContainer = document.getElementById('cctv-container');
+            const quizBtn = document.getElementById('mode-btn-quiz');
+            const cctvBtn = document.getElementById('mode-btn-cctv');
+
+            if (mode === 'quiz') {
+                quizContainer.classList.remove('hidden');
+                cctvContainer.classList.add('hidden');
+                quizBtn.className = "flex-1 py-3 border border-primary text-primary bg-primary/10 uppercase font-bold cursor-pointer transition-all active:scale-95";
+                cctvBtn.className = "flex-1 py-3 border border-[#393939] text-on-surface-variant hover:border-primary hover:text-primary uppercase cursor-pointer transition-all active:scale-95";
+                resetCCTVGame();
+            } else {
+                quizContainer.classList.add('hidden');
+                cctvContainer.classList.remove('hidden');
+                quizBtn.className = "flex-1 py-3 border border-[#393939] text-on-surface-variant hover:border-primary hover:text-primary uppercase cursor-pointer transition-all active:scale-95";
+                cctvBtn.className = "flex-1 py-3 border border-primary text-primary bg-primary/10 uppercase font-bold cursor-pointer transition-all active:scale-95";
+            }
+        }
+
+        // 6B. CCTV Surveillance Survival Engine (FNAF-style)
+        let cctvActive = false;
+        let cctvTime = 40;
+        let cctvPower = 100;
+        let cctvCam = 1;
+        let jeffCam = 0; // 0 = not present, 1 = cam 1, 2 = cam 2, 3 = cam 3
+        let cctvLoopInterval = null;
+        let jeffReactionTimeout = null;
+
+        const cctvFeeds = {
+            1: {
+                name: "CAM 01 // CORRIDOR",
+                normal: "https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4",
+                jeff: "https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8"
+            },
+            2: {
+                name: "CAM 02 // WINDOW",
+                normal: "https://lh3.googleusercontent.com/aida-public/AB6AXuAAiGqIbr0MsNGH5FqKv-Rg0oxEKbI3K2ntRKiA0jPB6JavANBw4ovApAPufdIQC5Q7WD45vcdPJvQhygOD7I1bjco3Tc_6puIezXNpWNZFGPT0OA21e7RL26N1kVKtgQ4O25oYcBgrdzRkYEMRVEu9t-5zZbUzR4GOTSH3Tz63CaBaFd0eetEYvwsWaPYj6BaM0w2Hwg3Z9yQSAsT_OrFnUwaoFs0WSvFwkWaoEiEVMK_0TxRdvdbDgaoO_uV6HkNC8xqRNyDwGLY",
+                jeff: "https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs"
+            },
+            3: {
+                name: "CAM 03 // DOOR",
+                normal: "https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4",
+                jeff: "https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8"
+            }
+        };
+
+        function logCCTV(msg) {
+            const consoleEl = document.getElementById('cctv-log-console');
+            if (consoleEl) {
+                const div = document.createElement('div');
+                div.className = "text-[#ffb4a8] leading-tight";
+                div.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+                consoleEl.appendChild(div);
+                consoleEl.scrollTop = consoleEl.scrollHeight;
+            }
+        }
+
+        function switchCCTV(camNum) {
+            cctvCam = camNum;
+            const monitor = document.getElementById('cctv-monitor-feed');
+            const camTag = document.getElementById('cctv-cam-tag');
+            const staticScreen = document.getElementById('cctv-static');
+
+            if (!monitor || !camTag) return;
+
+            // Trigger static glitch overlay
+            if (staticScreen) {
+                staticScreen.style.opacity = '0.9';
+                staticScreen.style.pointerEvents = 'auto';
+                setTimeout(() => {
+                    staticScreen.style.opacity = '0';
+                    staticScreen.style.pointerEvents = 'none';
+                }, 200);
+            }
+
+            // Update cam buttons active style
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`cam-btn-${i}`);
+                if (btn) {
+                    if (i === camNum) {
+                        btn.className = "py-2.5 border border-primary text-primary bg-primary/10 font-bold cursor-pointer transition-colors";
+                    } else {
+                        btn.className = "py-2.5 border border-[#353535] text-on-surface-variant hover:border-primary hover:text-primary transition-colors cursor-pointer";
+                    }
+                }
+            }
+
+            // Update feed content
+            camTag.innerText = cctvFeeds[camNum].name;
+            if (jeffCam === camNum) {
+                monitor.style.backgroundImage = `url('${cctvFeeds[camNum].jeff}')`;
+                monitor.style.filter = "grayscale(100%) brightness(1.2) contrast(180%)";
+            } else {
+                monitor.style.backgroundImage = `url('${cctvFeeds[camNum].normal}')`;
+                monitor.style.filter = "grayscale(100%) brightness(0.75) contrast(125%)";
+            }
+        }
+
+        function startCCTVSurvival() {
+            cctvActive = true;
+            cctvTime = 40;
+            cctvPower = 100;
+            jeffCam = 0;
+            cctvCam = 1;
+
+            document.getElementById('cctv-start-btn').classList.add('hidden');
+            document.getElementById('cctv-defense-grid').classList.remove('hidden');
+
+            const consoleEl = document.getElementById('cctv-log-console');
+            if (consoleEl) consoleEl.innerHTML = "";
+
+            logCCTV("SYSTEMS INITIALIZED. POWER GRIDS STABILIZED.");
+            logCCTV("SURVIVOR STATUS: RUNNING.");
+
+            switchCCTV(1);
+
+            cctvLoopInterval = setInterval(() => {
+                cctvTime--;
+                cctvPower -= 1; // Natural power loss
+
+                if (cctvPower < 0) cctvPower = 0;
+
+                document.getElementById('cctv-time').innerText = cctvTime;
+                document.getElementById('cctv-power').innerText = cctvPower;
+
+                // Check power failure
+                if (cctvPower <= 0) {
+                    triggerCCTVJumpscare("POWER DECAYED TO 0%. PROTOCOLS FAILED.");
+                    return;
+                }
+
+                // Check win condition
+                if (cctvTime <= 0) {
+                    winCCTVSurvival();
+                    return;
+                }
+
+                // Randomly spawn Jeff if not already active
+                if (jeffCam === 0 && Math.random() > 0.65 && cctvTime > 5) {
+                    spawnJeff();
+                }
+            }, 1000);
+        }
+
+        function spawnJeff() {
+            jeffCam = Math.floor(Math.random() * 3) + 1;
+            logCCTV(`[WARNING] MOTION DETECTED ON CAM 0${jeffCam}!`);
+            
+            // Re-render feed if currently on this cam
+            if (cctvCam === jeffCam) {
+                switchCCTV(cctvCam);
+            }
+
+            // Reaction window: 2.8 seconds
+            jeffReactionTimeout = setTimeout(() => {
+                triggerCCTVJumpscare(`BREACH OF PERIMETER ON CAM 0${jeffCam}!`);
+            }, 2800);
+        }
+
+        function triggerCCTVDefense(type) {
+            if (!cctvActive) return;
+
+            // Penalty for panic clicking
+            let powerPenalty = 15;
+            let success = false;
+
+            if (type === 'stun' && jeffCam === 1) {
+                success = true;
+                powerPenalty = 10;
+            } else if (type === 'blinds' && jeffCam === 2) {
+                success = true;
+                powerPenalty = 10;
+            } else if (type === 'door' && jeffCam === 3) {
+                success = true;
+                powerPenalty = 10;
+            }
+
+            cctvPower -= powerPenalty;
+            if (cctvPower < 0) cctvPower = 0;
+            document.getElementById('cctv-power').innerText = cctvPower;
+
+            if (success) {
+                logCCTV(`[SUCCESS] REPELLED TARGET ON CAM 0${jeffCam}.`);
+                clearTimeout(jeffReactionTimeout);
+                jeffCam = 0;
+                switchCCTV(cctvCam); // Re-render normal feed
+            } else {
+                logCCTV(`[FAIL] DEFENSE MISMATCH. WASTED ${powerPenalty}% POWER.`);
+            }
+        }
+
+        function triggerCCTVJumpscare(cause) {
+            resetCCTVGame();
+            logCCTV(`[FATAL] ${cause}`);
+            triggerJeffJumpscare();
+        }
+
+        function winCCTVSurvival() {
+            resetCCTVGame();
+            const container = document.getElementById('cctv-container');
+            
+            document.body.style.filter = "invert(100%)";
+            setTimeout(() => {
+                document.body.style.filter = "none";
+                document.body.style.backgroundColor = "#000";
+                
+                container.innerHTML = `
+                    <h1 class="font-headline-sm md:font-headline-md text-primary tracking-widest text-center uppercase border-b border-[#353535] w-full pb-4 animate-pulse">
+                        SURVIVOR SUCCESS
+                    </h1>
+                    <div class="w-full aspect-video relative flex justify-center items-center bg-black border border-primary overflow-hidden">
+                        <img alt="Jeff creepy grin" class="w-full h-full object-cover grayscale brightness-125 contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs" />
+                    </div>
+                    <div class="w-full font-label-mono text-label-mono text-primary text-center px-4 py-6 border border-primary bg-red-950/20 leading-relaxed uppercase text-xs md:text-sm">
+                        KAU BERJAYA LEPAS MALAM NI...<br/>
+                        TAPI JEFF AKAN SENTIASA PERHATI KAU DARI JALAN PUTRA.<br/>
+                        GO TO SLEEP... TIDURLAH...
+                    </div>
+                    <button onclick="showScreen('dunia-gelap')" class="game-btn font-label-mono text-label-mono text-[#F5F5F5] bg-primary border border-primary py-3 px-6 hover:bg-error transition-colors uppercase relative overflow-hidden mt-4 w-full cursor-pointer">
+                        WAKE UP
+                    </button>
+                `;
+            }, 300);
+        }
+
+        function resetCCTVGame() {
+            cctvActive = false;
+            clearInterval(cctvLoopInterval);
+            clearTimeout(jeffReactionTimeout);
+            
+            const startBtn = document.getElementById('cctv-start-btn');
+            const defenseGrid = document.getElementById('cctv-defense-grid');
+            if (startBtn && defenseGrid) {
+                startBtn.classList.remove('hidden');
+                defenseGrid.classList.add('hidden');
+            }
+        }
+
+        function resetCCTVGameUI() {
+            resetCCTVGame();
+            const container = document.getElementById('cctv-container');
+            if (container) {
+                container.innerHTML = `
+                    <!-- Top status bar -->
+                    <div class="w-full flex justify-between items-center border-b border-[#353535] pb-4">
+                        <div class="font-label-mono text-label-mono text-primary flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary animate-pulse-fast">videocam</span>
+                            SURVEILLANCE FEED: ACTIVE
+                        </div>
+                        <div class="flex gap-6 font-label-mono text-label-mono text-xs md:text-sm">
+                            <div>POWER: <span class="text-error font-bold" id="cctv-power">100</span>%</div>
+                            <div>TIME: <span class="text-primary font-bold" id="cctv-time">40</span>s</div>
+                        </div>
+                    </div>
+
+                    <!-- Monitor screen view -->
+                    <div class="w-full aspect-video bg-black border border-[#353535] relative overflow-hidden flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,1)]">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;utf8,<svg viewBox=&quot;0 0 200 200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><filter id=&quot;noiseFilter&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.85&quot; numOctaves=&quot;3&quot; stitchTiles=&quot;stitch&quot;/></filter><rect width=&quot;100%&quot; height=&quot;100%&quot; filter=&quot;url(%23noiseFilter)&quot;/></svg>')] opacity-15 mix-blend-overlay pointer-events-none z-20"></div>
+                        <div class="w-full h-full bg-cover bg-center grayscale filter brightness-75 contrast-125 transition-all duration-300" id="cctv-monitor-feed" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
+                        <div id="cctv-static" class="absolute inset-0 bg-zinc-950 z-30 opacity-0 pointer-events-none flex items-center justify-center">
+                            <div class="w-full h-full bg-[url('data:image/svg+xml;utf8,<svg viewBox=&quot;0 0 200 200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><filter id=&quot;noise&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.99&quot; numOctaves=&quot;4&quot;/></filter><rect width=&quot;100%&quot; height=&quot;100%&quot; filter=&quot;url(%23noise)&quot;/></svg>')] opacity-70"></div>
+                        </div>
+                        <div class="absolute top-4 left-4 font-label-mono text-label-mono text-xs text-primary z-20 bg-black/60 px-2 py-0.5 border border-primary/20" id="cctv-cam-tag">
+                            CAM 01 // CORRIDOR
+                        </div>
+                        <div class="absolute bottom-4 left-4 font-label-mono text-label-mono text-[10px] text-red-500 animate-pulse z-20 flex items-center gap-1">
+                            <span class="h-2 w-2 rounded-full bg-red-600 inline-block animate-ping"></span> REC LIVE
+                        </div>
+                    </div>
+
+                    <!-- Camera selectors -->
+                    <div class="grid grid-cols-3 gap-2 w-full font-label-mono text-xs text-center">
+                        <button id="cam-btn-1" class="py-2.5 border border-primary text-primary bg-primary/10 font-bold cursor-pointer transition-colors" onclick="switchCCTV(1)">CAM 01 (CORRIDOR)</button>
+                        <button id="cam-btn-2" class="py-2.5 border border-[#353535] text-on-surface-variant hover:border-primary hover:text-primary transition-colors cursor-pointer" onclick="switchCCTV(2)">CAM 02 (WINDOW)</button>
+                        <button id="cam-btn-3" class="py-2.5 border border-[#353535] text-on-surface-variant hover:border-primary hover:text-primary transition-colors cursor-pointer" onclick="switchCCTV(3)">CAM 03 (DOOR)</button>
+                    </div>
+
+                    <!-- System Logs Console -->
+                    <div class="w-full bg-black border border-[#353535] p-3 h-24 font-label-mono text-xs text-[#555] overflow-y-auto flex flex-col gap-1 shadow-[inset_0_0_10px_rgba(0,0,0,1)]" id="cctv-log-console">
+                        <div>[SYSTEM] INTRODUCTORY SEQUENCE... READY.</div>
+                        <div>[SYSTEM] PRESS "START SURVIVAL" TO BEGIN SHIFT.</div>
+                    </div>
+
+                    <!-- Start and Defense controls -->
+                    <div class="w-full flex flex-col gap-3">
+                        <button id="cctv-start-btn" class="w-full py-4 bg-primary text-on-primary font-label-mono text-label-mono font-bold tracking-widest hover:bg-error hover:text-white transition-colors cursor-pointer uppercase text-center" onclick="startCCTVSurvival()">
+                            START SURVIVAL
+                        </button>
+                        <div id="cctv-defense-grid" class="grid grid-cols-3 gap-2 w-full font-label-mono text-[10px] md:text-xs hidden">
+                            <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('stun')">STUN LIGHT</button>
+                            <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('blinds')">DRAW BLINDS</button>
+                            <button class="py-3.5 border border-error text-error bg-red-950/20 hover:bg-error hover:text-white active:scale-95 transition-all uppercase cursor-pointer" onclick="triggerCCTVDefense('door')">CLOSE DOOR</button>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
 
