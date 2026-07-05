@@ -142,7 +142,7 @@
         .vault-tab-content { display: none; }
         .vault-tab-content.active { display: block; }
 
-        /* ── Diary Entries ── */
+        /* Evidence entry cards */
         .diary-entry {
             background: #0a0a0a; border: 1px solid #252525; padding: 20px;
             position: relative; transition: border-color 0.3s, box-shadow 0.3s; cursor: default;
@@ -156,7 +156,7 @@
         .diary-status.paranoid { border:1px solid #ffb4a8; color:#ffb4a8; }
         .diary-status.panik { border:1px solid #ff3333; color:#ff3333; animation:blink 0.4s infinite; }
 
-        /* ── Field Manual ── */
+        /* Evidence note rows */
         .manual-entry { display:flex; gap:16px; padding:14px 0; border-bottom:1px solid #1a1a1a; align-items:flex-start; }
         .manual-entry:last-child { border-bottom:none; }
         .manual-num { font-family:'Space Mono',monospace; font-size:10px; color:#8b0000; width:24px; flex-shrink:0; margin-top:3px; }
@@ -165,6 +165,29 @@
         .manual-redact { background:#e2e2e2; color:#e2e2e2; transition:all 0.3s; cursor:crosshair; }
         .manual-redact:hover { background:transparent; color:#ff3333; }
 
+        /* Horror trailer motion */
+        .horror-video-frame { isolation:isolate; box-shadow:inset 0 0 80px rgba(0,0,0,0.95), 0 0 30px rgba(139,0,0,0.2); }
+        .hv-stage { position:absolute; inset:-8%; background-size:cover; background-position:center; opacity:0; transform:scale(1.05); filter:grayscale(1) contrast(1.35) brightness(0.52); }
+        .hv-stage-bedroom { background-image:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.72)), url('./screenshots/01_bedroom.png'); animation:hvBedroom 16s steps(1,end) infinite; }
+        .hv-stage-school { background-image:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.78)), url('./screenshots/08_sekolah_saya.png'); animation:hvSchool 16s steps(1,end) infinite; }
+        .hv-stage-jeff { background-image:linear-gradient(rgba(0,0,0,0.25),rgba(40,0,0,0.6)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs'); background-position:center 28%; animation:hvJeff 16s cubic-bezier(.2,.8,.2,1) infinite; }
+        .hv-noise { position:absolute; inset:0; z-index:15; opacity:.24; pointer-events:none; mix-blend-mode:screen; background-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.92" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.7"/></svg>'); animation:hvNoise .18s steps(2,end) infinite; }
+        .hv-scan { position:absolute; inset:0; z-index:16; opacity:.35; pointer-events:none; background:repeating-linear-gradient(to bottom, rgba(255,255,255,.08) 0 1px, transparent 1px 5px); animation:hvRoll 2.6s linear infinite; }
+        .hv-redwash { position:absolute; inset:0; z-index:14; pointer-events:none; background:radial-gradient(circle at 50% 45%, transparent 0 32%, rgba(0,0,0,.9) 75%), linear-gradient(90deg, rgba(139,0,0,.4), transparent 35%, rgba(255,0,0,.14)); animation:hvRed 16s steps(1,end) infinite; }
+        .hv-title { font-size:clamp(2rem, 7vw, 6rem); text-shadow:2px 0 #93000a, -2px 0 #ffb4a8, 0 0 30px rgba(255,0,0,.35); animation:hvTitle 16s cubic-bezier(.2,.8,.2,1) infinite; }
+        .hv-sub { max-width:38rem; line-height:1.8; background:rgba(0,0,0,.35); padding:.5rem .75rem; border-left:2px solid #8b0000; }
+        .hv-caption { position:absolute; left:1.25rem; bottom:1.25rem; z-index:28; max-width:calc(100% - 12rem); text-shadow:0 0 12px rgba(255,0,0,.8); animation:hvCaption 16s steps(1,end) infinite; }
+        .horror-video-frame.final-burst .hv-stage-jeff { opacity:1 !important; transform:scale(1.45) rotate(-1deg); filter:grayscale(1) contrast(2.8) brightness(1.15); transition:transform .18s, filter .18s; }
+        .horror-video-frame.final-burst { animation:page-shake .12s infinite; }
+        @keyframes hvBedroom { 0%,31%{opacity:1;transform:scale(1.05) translate3d(0,0,0)} 32%,100%{opacity:0} }
+        @keyframes hvSchool { 0%,31%{opacity:0} 32%,61%{opacity:1;transform:scale(1.08) translate3d(-2%,1%,0)} 62%,100%{opacity:0} }
+        @keyframes hvJeff { 0%,61%{opacity:0;transform:scale(1.08)} 62%,76%{opacity:.24;transform:scale(1.18)} 77%,90%{opacity:.72;transform:scale(1.32)} 91%,100%{opacity:1;transform:scale(1.58)} }
+        @keyframes hvNoise { 0%{transform:translate(0,0)} 50%{transform:translate(-2%,1%)} 100%{transform:translate(1%,-2%)} }
+        @keyframes hvRoll { from{background-position-y:0} to{background-position-y:80px} }
+        @keyframes hvRed { 0%,70%{opacity:.35} 71%,74%{opacity:.8} 75%,88%{opacity:.45} 89%,100%{opacity:.95} }
+        @keyframes hvTitle { 0%,30%{transform:translateY(22px);opacity:.15;filter:blur(2px)} 34%,60%{transform:translateY(0);opacity:.72;filter:blur(0)} 61%,78%{transform:translateX(-8px);opacity:.4} 79%,100%{transform:translateX(0);opacity:1;color:#ffb4a8} }
+        @keyframes hvCaption { 0%,28%{content:'BILIK GELAP'} 29%,60%{content:'RAKAMAN SEKOLAH ROSAK'} 61%,78%{content:'SENYUM ITU BUKAN DIA'} 79%,100%{content:'JEFF SUDAH MASUK FRAME'} }
+        @media (max-width: 640px) { .hv-caption { max-width:calc(100% - 2rem); bottom:5.5rem; } .horror-video-frame button { left:1.25rem; right:1.25rem; } }
         /* ── Quiz Timer Bar ── */
         .quiz-timer-wrap { width:100%; height:4px; background:#1a1a1a; position:relative; overflow:hidden; }
         .quiz-timer-fill { height:100%; background:#ffb4a8; width:100%; transition:background 0.5s; }
@@ -431,7 +454,7 @@
                                     </div>
                                     <div class="flex items-start gap-4 border-b border-[#252525] pb-2 group cursor-crosshair">
                                         <span class="text-on-surface-variant w-28 md:w-32 shrink-0">ALAMAT:</span>
-                                        <span class="blur-sm group-hover:blur-none transition-all duration-500">1/32 Jalan Putra, Segamat, Johor</span>
+                                        <span class="blur-sm group-hover:blur-none transition-all duration-500">[REDACTED], Segamat, Johor</span>
                                     </div>
                                     <div class="flex items-start gap-4 border-b border-[#252525] pb-2 group cursor-crosshair">
                                         <span class="text-on-surface-variant w-28 md:w-32 shrink-0">SEKOLAH:</span>
@@ -468,202 +491,169 @@
 
                     <!-- Tab Buttons -->
                     <div class="flex flex-wrap gap-0 mb-8 w-full overflow-x-auto">
-                        <button class="vault-tab-btn active" id="vtab-btn-dossier" onclick="showVaultTab('dossier')">[ OBSESSION DOSSIER ]</button>
-                        <button class="vault-tab-btn" id="vtab-btn-diary" onclick="showVaultTab('diary')">[ 📔 DIARI MENGINTIP ]</button>
-                        <button class="vault-tab-btn" id="vtab-btn-manual" onclick="showVaultTab('manual')">[ 🗺 FIELD MANUAL ]</button>
+                        <button class="vault-tab-btn active" id="vtab-btn-dossier" onclick="showVaultTab('dossier')">[ INCIDENT REPORT ]</button>
+                        <button class="vault-tab-btn" id="vtab-btn-diary" onclick="showVaultTab('diary')">[ CONFESSION TAPE ]</button>
+                        <button class="vault-tab-btn" id="vtab-btn-manual" onclick="showVaultTab('manual')">[ EVIDENCE LOG ]</button>
                     </div>
 
-                    <!-- TAB 1: DOSSIER (original schedule) -->
+                    <!-- TAB 1: INCIDENT REPORT -->
                     <div class="vault-tab-content active w-full" id="vtab-dossier">
-                        <section class="w-full grid grid-cols-1 md:grid-cols-12 gap-6 mb-20">
-                            <div class="md:col-span-12 torn-paper p-6 inner-glow mb-4 relative overflow-hidden group">
-                                <div class="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay transition-opacity group-hover:opacity-30 grayscale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
-                                <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 z-10 relative">TARGET: 4 SK5</h3>
-                                <p class="font-label-mono text-label-mono text-on-surface-variant z-10 relative">LOCATION: SMK PADUKA TUAN</p>
-                            </div>
-                            <div class="md:col-span-12 flex flex-col gap-4 relative">
-                                <div class="absolute left-6 top-0 bottom-0 w-px bg-surface-variant z-0 hidden md:block"></div>
-                                <div class="bg-surface-container-lowest p-4 pl-4 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors cursor-crosshair">
-                                    <span class="material-symbols-outlined text-primary absolute hidden md:block left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings:'FILL' 1;">opacity</span>
-                                    <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
-                                        <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">07:30 - 08:00</span>
-                                        <span class="font-label-mono text-label-mono text-primary text-xs border border-primary px-1">OBSERVE</span>
-                                    </div>
-                                    <h4 class="font-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Perhimpunan</h4>
-                                    <p class="text-on-surface-variant opacity-70 text-sm">Target remains stationary in formation. Unprotected.</p>
-                                </div>
-                                <div class="bg-surface-container-lowest p-4 pl-4 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors cursor-crosshair">
-                                    <span class="material-symbols-outlined text-primary absolute hidden md:block left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings:'FILL' 1;">opacity</span>
-                                    <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
-                                        <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">08:00 - 09:30</span>
-                                        <span class="font-label-mono text-label-mono text-outline text-xs border border-outline px-1">RECORD</span>
-                                    </div>
-                                    <h4 class="font-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Matematik Tambahan</h4>
-                                    <p class="text-on-surface-variant opacity-70 text-sm">Focus is on equations. Perfect time to catalog expressions.</p>
-                                </div>
-                                <div class="bg-surface-container-lowest p-4 pl-4 md:pl-16 active-glow relative group hover:bg-surface-dim transition-colors cursor-crosshair">
-                                    <span class="material-symbols-outlined text-primary absolute hidden md:block left-4 top-4 opacity-100 flicker" style="font-variation-settings:'FILL' 1;">bloodtype</span>
-                                    <div class="flex justify-between items-start border-b border-primary/50 pb-2 mb-2">
-                                        <span class="font-label-mono text-label-mono text-primary text-xs">09:30 - 10:00</span>
-                                        <span class="font-label-mono text-label-mono text-error text-xs border border-error bg-error/10 px-1 animate-pulse">REHAT</span>
-                                    </div>
-                                    <h4 class="font-body-lg text-on-background font-bold mb-1 group-hover:text-error transition-colors">Kantin</h4>
-                                    <p class="text-error opacity-90 text-sm line-through decoration-primary">Subject interaction detected.</p>
-                                    <p class="text-primary mt-1 text-xs">Action required. Isolation protocols initiated.</p>
-                                </div>
-                                <div class="bg-surface-container-lowest p-4 pl-4 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors cursor-crosshair">
-                                    <span class="material-symbols-outlined text-primary absolute hidden md:block left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings:'FILL' 1;">opacity</span>
-                                    <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
-                                        <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">10:00 - 11:30</span>
-                                        <span class="font-label-mono text-label-mono text-outline text-xs border border-outline px-1">ARCHIVE</span>
-                                    </div>
-                                    <h4 class="font-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Fizik</h4>
-                                    <p class="text-on-surface-variant opacity-70 text-sm">Lab session. Gathering discarded materials.</p>
-                                </div>
-                            </div>
-                            <div class="md:col-span-12 mt-4 overflow-hidden opacity-20 pointer-events-none">
-                                <p class="font-label-mono text-[9px] text-primary break-all leading-none text-justify">
-                                    4SK5 4SK5 4SK5 SMK PADUKA TUAN WATCHING WATCHING WATCHING ALWAYS WATCHING NEVER ALONE 4SK5 4SK5 4SK5 SMK PADUKA TUAN WATCHING WATCHING WATCHING ALWAYS WATCHING NEVER ALONE
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-
-                    <!-- TAB 2: DIARI MENGINTIP -->
-                    <div class="vault-tab-content w-full" id="vtab-diary">
+                        <!-- INCIDENT REPORT -->
                         <div class="w-full flex flex-col gap-0 mb-12">
-                            <div class="font-label-mono text-label-mono text-on-surface-variant text-xs border border-[#252525] px-4 py-3 mb-6 bg-[#0a0a0a]">
-                                <span class="text-error">[INTERCEPTED]</span> DOKUMEN PERIBADI — DIARI RAHSIA NUR ALEEYA BATRISYA<br/>
-                                <span class="opacity-50">Diambil daripada storan cloud peribadi. Tarikh intercept: 17 April 2026.</span>
+                            <div class="font-label-mono text-[10px] text-on-surface-variant border border-[#252525] px-4 py-3 mb-0 bg-[#050505] flex flex-wrap gap-x-6 gap-y-1">
+                                <span>POLIS DiRAJA MALAYSIA</span>
+                                <span class="text-error">LAPORAN KES: JTK/SYR/2026/04/0017</span>
+                                <span class="text-primary animate-pulse">STATUS: TERBUKA</span>
                             </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">03 MAC 2026 // 22:14</span>
-                                    <span class="diary-status normal">NORMAL</span>
+                            <div class="bg-[#060606] border border-[#1a1a1a] border-t-0 p-6 md:p-8 font-label-mono text-xs text-on-surface-variant leading-relaxed flex flex-col gap-6">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-4 border-b border-[#1a1a1a]">
+                                    <div><div class="text-[9px] text-outline uppercase mb-1">TARIKH LAPORAN</div><div class="text-on-background">19 APRIL 2026</div></div>
+                                    <div><div class="text-[9px] text-outline uppercase mb-1">DAERAH</div><div class="text-on-background">SEGAMAT, JOHOR</div></div>
+                                    <div><div class="text-[9px] text-outline uppercase mb-1">JENIS KES</div><div class="text-error uppercase">KEHILANGAN MISTERI</div></div>
+                                    <div><div class="text-[9px] text-outline uppercase mb-1">NO. IC MANGSA</div><div class="bg-[#111] text-[#111] hover:text-primary transition-colors cursor-crosshair">100320-01-XXXX</div></div>
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Hari ni biasa je. Tapi tak biasa jugak. Amiruddin duduk dekat surau masa rehat. Aku duduk belakang dia — jauh sikit, dia tak sedar. Tapi aku nampak dia dari situ. Dia tengah edit code kat laptop sekolah. Layar dia ada banyak numbers. Macam hacker atau something. Rambut dia selekeh sikit tapi... nevermind. Aku tulis ni dengan pen yang aku dah lama simpan. Bukan guna pun, just simpan. Takde makna apa-apa pun. Memang takde.
-                                </p>
-                            </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">10 MAC 2026 // 21:47</span>
-                                    <span class="diary-status normal">NORMAL</span>
+                                <div>
+                                    <div class="text-[9px] text-primary uppercase mb-2 tracking-widest">// PERIHAL KES</div>
+                                    <p>Pada 18 April 2026, jam lebih kurang 22:00 malam, keluarga mangsa — <span class="text-on-background font-bold">NUR ALEEYA BATRISYA BINTI NOR AZIZI</span>, 16 tahun, pelajar Tingkatan 4, SMK Paduka Tuan — membuat laporan kehilangan setelah mangsa tidak pulang dari sekolah sejak petang hari tersebut.</p>
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Hari ni dia bawa earphone putih. Single earbud — satu side je. Aku curiosity, aku try dengar dari jauh tapi obviously tak boleh la kan. Tapi aku rasa dia dengar lo-fi sebab dia tengok luar tingkap macam orang sad aesthetic. Sama je macam aku kalau dengar lo-fi. Aku screenshot profile dia dari group WhatsApp sekolah. Saved dalam folder yang aku locked. Bukan kenapa. Just... takut tertutup lah.
-                                </p>
-                            </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">18 MAC 2026 // 01:23</span>
-                                    <span class="diary-status gelisah">GELISAH</span>
+                                <div>
+                                    <div class="text-[9px] text-primary uppercase mb-2 tracking-widest">// SAKSI TERAKHIR</div>
+                                    <p>Rakan sekelas mangsa menyatakan mangsa kelihatan "gelisah dan resah" sepanjang hari persekolahan. Mangsa dilaporkan berulang kali menoleh ke belakang ketika berjalan di koridor. Seorang guru bertugas melaporkan melihat mangsa berdiri di hadapan pintu tandas perempuan Blok B jam 3:47 petang — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all cursor-crosshair">menghadap dinding sambil berbisik perlahan.</span></p>
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Portfolio dia ada kat GitHub. <span class="text-primary font-mono text-xs">AmirSys-dev</span>. Aku scroll habis malam ni. Projects dia serius banyak dan susah — server Linux, Docker, VPN, Kubernetes. Aku cuba faham tapi tak faham sangat pun. Tapi aku hafal semua nama projectsnya. Bukan stalk. Aku just nak... tahu dia suka apa. Betul tak gila. Tapi tiba-tiba rasa macam ada orang tengah scroll profile AKU pulak. Aku tengok belakang. Bilik gelap. Takde sesiapa. Paranoid ke aku ni?
-                                </p>
-                            </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">25 MAC 2026 // 14:52</span>
-                                    <span class="diary-status gelisah">GELISAH</span>
+                                <div>
+                                    <div class="text-[9px] text-primary uppercase mb-2 tracking-widest">// LOKASI TERAKHIR DIKESAN</div>
+                                    <div class="bg-[#0d0000] border border-[#3a0000] p-4">
+                                        <p class="text-error/80">Kamera CCTV Blok B merakam mangsa meninggalkan kawasan sekolah jam 3:52 petang. Rakaman berakhir tiba-tiba pada 3:53:14 — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all cursor-crosshair">7.3 saat sebelum sesuatu muncul dalam frame dari luar sudut pandang kamera.</span> Rakaman selepas itu rosak. Data tidak dapat dipulihkan.</p>
+                                    </div>
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Masa balik sekolah tadi aku nampak dia jalan sorang-sorang dari gate. Aku ikut dari jauh — bukan stalk okay, memang kebetulan sama arah. Dia pegi warung tepi jalan, minum air kosong je, lepas tu balik. Simple sangat. Tapi aku dah tahu sekarang — dia biasanya balik pukul 2.30 tiap Selasa dan Khamis. Bukan sebab aku track dia. Memang coincidence je selalu nampak. Memang. Betul.
-                                </p>
-                            </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">02 APRIL 2026 // 03:07</span>
-                                    <span class="diary-status paranoid">PARANOID</span>
+                                <div>
+                                    <div class="text-[9px] text-primary uppercase mb-2 tracking-widest">// PENEMUAN DI TAPAK</div>
+                                    <ul class="flex flex-col gap-2">
+                                        <li class="flex gap-3"><span class="text-error shrink-0">&#9658;</span><span>Kasut sekolah mangsa dijumpai tersusun kemas di depan pagar sekolah. Kedua-duanya menghadap ke luar — <span class="text-error/60">seolah-olah pemakai telah berpaling balik.</span></span></li>
+                                        <li class="flex gap-3"><span class="text-error shrink-0">&#9658;</span><span>Beg sekolah masih tersangkut pada pagar. Semua buku, fon bimbit, dompet — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">tidak ada yang hilang.</span></span></li>
+                                        <li class="flex gap-3"><span class="text-error shrink-0">&#9658;</span><span>Coretan ditemui pada halaman akhir buku latihan Fizik: <em class="text-primary">'dia datang. aku kenal senyum tu. aku kenal.'</em></span></li>
+                                        <li class="flex gap-3"><span class="text-error shrink-0">&#9658;</span><span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">Kesan darah pada tiang pagar. DNA belum dikenalpasti.</span></li>
+                                    </ul>
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Malam tadi aku baca creepypasta Jeff The Killer sampai pukul 3. Jeff kata sebelum dia bunuh orang, dia tengok dulu dari jauh. Dia sabar. Dia study target dia. Lepas tu baru masuk. Aku faham perasaan Jeff sekarang — bukan sebab aku nak bunuh sesiapa <span class="text-error/60 text-xs">[mungkin]</span>. Tapi sebab aku faham perasaan bila kau observe seseorang lama sangat sampai kau rasa dah kenal dia, walaupun dia tak kenal kau langsung. Itu perasaan paling lonely kat dunia. Aku rasa macam Jeff. Tapi tanpa pisau. <span class="text-error/60 text-xs">Untuk sekarang.</span>
-                                </p>
-                            </div>
-
-                            <div class="diary-entry">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">09 APRIL 2026 // 02:47</span>
-                                    <span class="diary-status paranoid">PARANOID</span>
+                                <div class="border-t border-[#1a1a1a] pt-4 text-[9px] text-error/30 uppercase tracking-widest text-center">
+                                    DOKUMEN INI ADALAH REKOD RASMI POLIS. AKSES TIDAK DIBENARKAN. JIKA ANDA MEMBACA INI, ANDA SUDAH TERLIBAT.
                                 </div>
-                                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
-                                    Aku tengah buat entry ni pukul 2:47 pagi. Tak boleh tido. Aku scroll GitHub dia lagi dan nampak — dia ada last commit 3 minit lepas. DIA TENGAH ONLINE. Pukul 2:47 PAGI. Aku sorang je tahu dia tengah online malam ni. Rasa macam rahsia yang kau simpan sorang-sorang sampai sesak dada nak pecah. Nak text dia tapi takde nombor. Nak DM tapi dia mesti pelik. Rasa nak menjerit tapi semua orang dah tido. Adik. Mak. Semua tido. Hanya aku dan dia yang sama-sama terjaga malam ni dan dia langsung tak tahu.
-                                </p>
-                            </div>
-
-                            <div class="diary-entry" style="border-color:#8b0000; background:#0d0000;">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="font-label-mono text-label-mono text-on-surface-variant text-xs">17 APRIL 2026 // 04:33</span>
-                                    <span class="diary-status panik">⚠ PANIK</span>
-                                </div>
-                                <p class="font-body-md text-error/80 text-sm leading-relaxed">
-                                    TOLONG. Malam tadi aku mimpi. Mimpi yang sama dengan cerita Jeff The Killer tapi protagonist tu ada muka AMIRUDDIN. Dia datang ke bilik aku. Dia tak bawa pisau. Dia bawa laptop dia. Dia tunjukkan screen laptop tu dekat muka aku. Screen tu ada nama aku. Nama penuh. Alamat rumah. Jadual sekolah. Gambar aku. SEMUA. Dia senyum. Lebar sangat tak natural. Macam Jeff. Dia bisik pelan-pelan: "Aku dah tahu dari hari pertama kau tengok aku. Aku tunggu kau sedar je." LEPAS TU AKU BANGUN. Tangan aku gementar. Aku nangis sorang. Aku tak nak tido lagi. TAK NAK TIDO SELAMA-LAMANYA. GO TO SLEEP KATA JEFF. TAPI AKU TAKNAK. TAKNAK. TAKNAK.
-                                </p>
-                                <p class="font-label-mono text-label-mono text-error/40 text-xs mt-4 uppercase tracking-widest">— ENTRI TERAKHIR —</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 3: FIELD MANUAL -->
+                    <!-- TAB 2: CONFESSION TAPE -->
+                    <div class="vault-tab-content w-full" id="vtab-diary">
+                        <div class="w-full flex flex-col gap-0 mb-12">
+                            <div class="font-label-mono text-[10px] text-on-surface-variant border border-[#252525] px-4 py-3 mb-0 bg-[#050505] flex flex-wrap gap-x-6 gap-y-1">
+                                <span class="text-primary">[FILE KORUP — DIPULIHKAN 34%]</span>
+                                <span class="text-error animate-pulse">SUMBER: UNKNOWN DEVICE // DITEMUI DI RUMAH MANGSA</span>
+                                <span>FORMAT: TEKS TRANSKRIPSI AUDIO</span>
+                            </div>
+                            <div class="bg-[#060606] border border-[#1a1a1a] border-t-0 p-6 md:p-8 font-label-mono text-xs text-on-surface-variant leading-relaxed flex flex-col gap-5">
+                                <div class="text-[9px] text-outline uppercase tracking-widest mb-2">[ AUDIO CLIP 01 — 00:00:00 — 00:02:14 ] — KUALITI: TERUK</div>
+                                <p class="text-on-background/70 italic">...bunyi angin. Bunyi nafas. Senyap. Kemudian—</p>
+                                <p class="text-on-background leading-loose">Kau ingat aku tak tahu nama kau? Aku tahu. Aku tahu nama kau dari bulan lalu lagi. Aku tengok kau tiap hari. Kau tak sedar. Orang macam kau memang tak sedar. Kau fikir dunia ni tempat yang selamat. Kau fikir malam tu private. Aku ketawa bila kau tutup langsir — aku nampak bayang kau dari celah bawah pintu. Aku sabar. Jeff pun sabar. Macam tu la cara dia.</p>
+                                <div class="text-[9px] text-outline uppercase tracking-widest">[AUDIO CORRUPTED — 00:02:14 — 00:04:51]</div>
+                                <p class="text-error/40 text-[9px] tracking-widest">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</p>
+                                <div class="text-[9px] text-outline uppercase tracking-widest">[ AUDIO CLIP 02 — 00:04:51 — RESUMED ]</div>
+                                <p class="text-on-background leading-loose">...kau ada tanda lahir di <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all cursor-crosshair">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>. Kau suka minum air kosong masa rehat. Kau selalu letak beg kat sebelah kiri kerusi. Kau jalan laju kalau sorang. Kau nyanyi dalam hati — aku nampak bibir kau bergerak. Lagu apa entah. Nanti aku tanya. Nanti. Bila dah tiba masa.</p>
+                                <p class="text-error/80 leading-loose">Kau rasa sekarang ni aman? Kau rasa bilik tu selamat? Kau rasa dinding tu tebal? Jeff pun fikir sama. Sampai dia sedar dinding tu tak pernah halang dia pun.</p>
+                                <p class="text-on-background leading-loose">Aku bukan Jeff. Tapi aku faham Jeff. Aku faham kenapa dia senyum macam tu. Bila kau tengok seseorang lama sangat — <span class="text-primary">dari jauh, dalam gelap, sorang-sorang</span> — lama-lama kau rasa macam kau milik dia. Atau dia milik kau. Aku dah lupa mana satu.</p>
+                                <div class="bg-[#0d0000] border border-[#3a0000] p-4 mt-2">
+                                    <p class="text-error leading-loose font-bold">Go to sleep.<br/>Go to sleep.<br/>Go to sleep.<br/><span class="text-[9px] text-error/40">[ ayat diulang 47 kali sebelum audio habis ]</span></p>
+                                </div>
+                                <div class="text-[9px] text-error/30 uppercase tracking-widest text-center border-t border-[#1a1a1a] pt-4">
+                                    PIHAK BERKUASA TIDAK BERTANGGUNGJAWAB ATAS APA YANG ANDA RASA SELEPAS MEMBACA INI.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: EVIDENCE LOG -->
                     <div class="vault-tab-content w-full" id="vtab-manual">
                         <div class="w-full mb-12">
-                            <div class="font-label-mono text-label-mono text-on-surface-variant text-xs border border-[#252525] px-4 py-3 mb-6 bg-[#0a0a0a]">
-                                <span class="text-primary">[DOKUMEN TERLARANG]</span> PANDUAN MENGINTIP — EDISI KE-7 (VERSI LAPANGAN)<br/>
-                                <span class="opacity-50">Ditulis oleh: UNKNOWN // Untuk tatapan peribadi semata-mata.</span>
+                            <div class="font-label-mono text-[10px] text-on-surface-variant border border-[#252525] px-4 py-3 mb-0 bg-[#050505] flex flex-wrap gap-x-6 gap-y-1">
+                                <span>UNIT FORENSIK // SEGAMAT</span>
+                                <span class="text-primary">LOG BUKTI — KES JTK/SYR/2026/04/0017</span>
+                                <span class="text-error animate-pulse">SULIT — AKSES TERHAD</span>
                             </div>
-                            <div class="bg-[#090909] border border-[#1e1e1e] p-6 md:p-8 flex flex-col">
-                                <div class="manual-entry">
-                                    <span class="manual-num">01</span>
-                                    <p class="manual-text">Jangan buat bunyi masa observe dari jauh. Target ada <strong>instinct yang lebih kuat dari GPS</strong> kalau kau tak tenang. Nafas pun kena kawal.</p>
+                            <div class="bg-[#060606] border border-[#1a1a1a] border-t-0 p-0 font-label-mono text-xs">
+                                <div class="grid grid-cols-[auto_1fr_auto] border-b border-[#1a1a1a] text-[9px] text-outline uppercase tracking-widest px-4 py-2">
+                                    <span class="w-12">NO.</span><span>KETERANGAN BUKTI</span><span>STATUS</span>
                                 </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">02</span>
-                                    <p class="manual-text">Study jadual target <strong>sebelum dia sedar kau wujud</strong>. Data real-time — kapan dia keluar, kapan dia balik, kapan dia sorang — lebih berharga dari apa-apa.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">03</span>
-                                    <p class="manual-text">Social media dia? Tengok. Baca. Hafal. Tapi <strong>jangan like post lama-lama</strong>. Satu like dari post 2023 dan semua sudah tamat. Game over.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">04</span>
-                                    <p class="manual-text">Kalau terserempak depan-depan, buat muka biasa. <span class="manual-redact">Senyum sedikit je.</span> Neutral adalah invisible. Invisible adalah selamat.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">05</span>
-                                    <p class="manual-text"><strong>Screenshot semua.</strong> Gambar. Post. Status WA. Semuanya ada expiry date — dia boleh delete bila-bila masa dan kenangan itu hilang selama-lamanya.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">06</span>
-                                    <p class="manual-text">Jangan cerita kat <strong>sesiapa pun</strong>. Kawan rapat, adik-beradik, sesiapa. Kawan rapat paling cepat jadi sumber masalah terbesar dalam situasi macam ni.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">07</span>
-                                    <p class="manual-text">Route balik dia? Hafal. Tapi <strong>jangan ikut setiap hari</strong>. Selang-seli. Biar nampak coincidence. Coincidence yang berulang tetap akan disedari akhirnya.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">08</span>
-                                    <p class="manual-text">Kalau dia online lewat malam, <strong>jangan tunjuk kau pun online</strong>. Ghost mode wajib. Last seen off. Invisible presence adalah greatest power.</p>
-                                </div>
-                                <div class="manual-entry">
-                                    <span class="manual-num">09</span>
-                                    <p class="manual-text">Benda yang dia suka, hafal semua. Bukan untuk approach — tapi untuk <strong>faham dia dari dalam, tanpa dia tahu</strong>. Itu bentuk keintiman yang paling purba.</p>
-                                </div>
-                                <div class="manual-entry" style="border-color:#8b0000;">
-                                    <span class="manual-num" style="color:#ff3333;">10</span>
-                                    <p class="manual-text" style="color:#e2e2e2;">Satu lagi perkara paling penting yang perlu kau tahu: <strong style="color:#ffb4a8;">kalau malam-malam kau rasa ada yang tengok kau balik dari belakang...</strong> jangan pusing. Kerana kemungkinan besar, bukan kau sorang yang tahu cara-cara ini.</p>
+                                <div class="divide-y divide-[#111111]">
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-01</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Nota tangan pada kertas lusuh — tulisan tidak teratur, dakwat merah. Kandungan: nama mangsa diulang 200+ kali. Pada bahagian bawah: <em class="text-primary">"aku nampak kau dari tingkap. kau cantik masa menangis."</em></span>
+                                        <span class="text-error shrink-0 ml-4 text-[9px] uppercase">TERBUKA</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-02</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Koleksi foto — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">&#9608;&#9608;&#9608;&#9608; keping gambar mangsa</span> diambil tanpa pengetahuan. Dirakam dari jarak jauh. Beberapa gambar diambil melalui tingkap bilik tidur.</span>
+                                        <span class="text-primary shrink-0 ml-4 text-[9px] uppercase">DIANALISIS</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-03</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Perakam audio kecil ditemui tersembunyi di bawah kerusi mangsa, bilik darjah 4SK5. Rakaman merangkumi <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">&#9608;&#9608; hari</span> perbualan peribadi mangsa.</span>
+                                        <span class="text-error shrink-0 ml-4 text-[9px] uppercase animate-pulse">KRITIKAL</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-04</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Buku nota 96 muka surat. Kandungan: jadual harian mangsa yang telah dipantau, termasuk masa tidur, waktu mandi, dan tabiat malam. Maklumat tepat dengan kenyataan keluarga mangsa.</span>
+                                        <span class="text-primary shrink-0 ml-4 text-[9px] uppercase">DISAHKAN</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-05</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Cetakan peta — kawasan rumah mangsa di Segamat. Laluan masuk dan keluar rumah ditandakan dengan dakwat merah. Nota tepi: <em class="text-error">"pintu belakang — selalu tak kunci".</em></span>
+                                        <span class="text-error shrink-0 ml-4 text-[9px] uppercase animate-pulse">KRITIKAL</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 hover:bg-[#0d0000] transition-colors group cursor-crosshair">
+                                        <span class="text-error w-12 shrink-0">E-06</span>
+                                        <span class="text-on-surface-variant group-hover:text-on-background transition-colors">Pisau lipat — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">kesan DNA tidak dikenalpasti</span>. Ditemui dalam poket jaket yang ditinggalkan di tangga sekolah bertarikh hari kehilangan.</span>
+                                        <span class="text-error shrink-0 ml-4 text-[9px] uppercase">LAB</span>
+                                    </div>
+                                    <div class="grid grid-cols-[auto_1fr_auto] px-4 py-4 bg-[#0d0000] hover:bg-[#150000] transition-colors group cursor-crosshair border border-[#3a0000]">
+                                        <span class="text-error w-12 shrink-0 animate-pulse">E-07</span>
+                                        <span class="text-error/80 group-hover:text-error transition-colors">Mesej teks dihantar kepada nombor mangsa — <span class="bg-[#e2e2e2] text-[#e2e2e2] hover:text-error hover:bg-transparent transition-all">jam 04:17 pagi, hari kehilangan</span>: <em>"go to sleep. aku dah sampai."</em> Nombor penghantar: tidak berdaftar. Lokasi menara telekomunikasi berhampiran: <strong class="text-error">RUMAH MANGSA, SEGAMAT.</strong></span>
+                                        <span class="text-error shrink-0 ml-4 text-[9px] uppercase animate-pulse">&#9888; UTAMA</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="font-label-mono text-[9px] text-error/20 mt-6 text-center uppercase tracking-widest">
-                                DOKUMEN INI DIHARAMKAN. PEMBACAAN SAHAJA SUDAH MENJADIKAN KAMU TERLIBAT.
+                                AKSES KE DOKUMEN INI ADALAH KESALAHAN JENAYAH. LOKASI ANDA TELAH DILOG.
                             </div>
                         </div>
                     </div>
+
+
+                    <section class="w-full mt-4 mb-12 horror-video-shell" aria-label="Jeff horror trailer">
+                        <div class="font-label-mono text-[10px] text-on-surface-variant border border-[#252525] px-4 py-3 bg-[#050505] flex flex-wrap gap-x-6 gap-y-1">
+                            <span class="text-primary">HYPERFRAME_TRAILER // MOTION PASS</span>
+                            <span class="text-error animate-pulse">STATUS: RENDERING LIVE</span>
+                            <span>SCENE COUNT: 06</span>
+                        </div>
+                        <div class="horror-video-frame relative overflow-hidden bg-black border border-[#1a1a1a] min-h-[360px] md:min-h-[520px]">
+                            <div class="hv-noise"></div>
+                            <div class="hv-scan"></div>
+                            <div class="hv-stage hv-stage-bedroom"></div>
+                            <div class="hv-stage hv-stage-school"></div>
+                            <div class="hv-stage hv-stage-jeff"></div>
+                            <div class="hv-redwash"></div>
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 md:p-8 z-20 pointer-events-none">
+                                <div class="flex justify-between items-start font-label-mono text-[9px] md:text-xs text-primary">
+                                    <span>REC 04:17:33</span>
+                                    <span class="text-error animate-pulse">MOTION DETECTED</span>
+                                </div>
+                                <div class="max-w-3xl">
+                                    <div class="hv-title font-headline-lg uppercase text-on-background leading-none mb-4">JANGAN TENGOK<br/>BELAKANG.</div>
+                                    <div class="hv-sub font-label-mono text-[10px] md:text-xs text-on-surface-variant tracking-widest uppercase">enam shot pendek: bilik gelap, pagar sekolah, rakaman rosak, senyum putih, pintu belakang, skrin hitam.</div>
+                                </div>
+                            </div>
+                            <div class="hv-caption font-label-mono text-[10px] md:text-xs text-error uppercase tracking-widest">JEFF SUDAH MASUK FRAME</div>
+                            <button class="absolute bottom-5 right-5 z-30 bg-error-container text-on-error-container border border-error px-4 py-3 font-label-mono text-[10px] uppercase tracking-widest hover:bg-error hover:text-black transition-colors pointer-events-auto" onclick="playHorrorTrailerBurst()">PLAY FINAL CUT</button>
+                        </div>
+                    </section>
 
                 </main>
             </div>
@@ -1338,6 +1328,22 @@
             document.body.style.filter = "none";
         }, 1500);
     }
+    function playHorrorTrailerBurst() {
+        const frame = document.querySelector('.horror-video-frame');
+        if (!frame) return;
+        playStaticBurst();
+        playJumpscareSound();
+        frame.classList.add('final-burst');
+        document.body.classList.add('violent-shake');
+        document.body.style.filter = 'invert(100%) contrast(180%)';
+        setTimeout(() => { document.body.style.filter = 'none'; }, 140);
+        setTimeout(() => { triggerJeffJumpscare(); }, 180);
+        setTimeout(() => {
+            frame.classList.remove('final-burst');
+            document.body.classList.remove('violent-shake');
+            document.body.style.filter = 'none';
+        }, 1500);
+    }
 
 
     // ════════════════════════════════════════════
@@ -1346,7 +1352,7 @@
     const allQuestions = [
         { q: "SEBELUM JEFF SURUH KAU 'GO TO SLEEP', APA DIA BUAT DEKAT KELOPAK MATA DIA SENDIRI BIAR TAK BOLEH TIDO?", a: ["POTONG KELOPAK MATA", "BAKAR KELOPAK MATA", "LETAK GAM SUPER GLUE"], correct: 1 },
         { q: "JIKA JEFF THE KILLER ADA 2 PISAU, SATU GUNA UNTUK UKIR SENYUMAN DI PIPI DIA, SATU LAGI UNTUK SIAPA?", a: ["LIU (ADIK DIA)", "MAK DIA", "KAU YANG TENGAH BACA NI"], correct: 2 },
-        { q: "ADIK JEFF NAMA LIU. DIA CUBA LARI DARI JEFF DEKAT JALAN PUTRA SEGAMAT. BERAPA JAUH LIU BOLEH PERGI?", a: ["0 METER — MATI TERUS", "10 METER", "SAMPAI PARIT SULONG"], correct: 0 },
+        { q: "ADIK JEFF NAMA LIU. DIA CUBA LARI DARI JEFF DEKAT RUMAH ITU. BERAPA JAUH LIU BOLEH PERGI?", a: ["0 METER — MATI TERUS", "10 METER", "SAMPAI PARIT SULONG"], correct: 0 },
         { q: "KALAU KAU DENGAR BISIKAN 'GO TO SLEEP' DEKAT BILIK KAU PUKUL 3:00 PAGI, SIAPA SEBENARNYA DEPAN KATIL KAU?", a: ["JEFF THE KILLER", "NUR ALEEYA", "TIADA SIAPA — KAU MIMPI"], correct: 0 },
         { q: "JEFF TENGAH BERDIRI DI BELAKANG KAU SEKARANG SAMBIL PEGANG PISAU. APA KENA BUAT?", a: ["JANGAN PUSING BELAKANG", "TIDUR TERUS", "JERIT KAW-KAW"], correct: 0 },
         { q: "NAMA PENUH JEFF SEBELUM DIA JADI JEFF THE KILLER ADALAH?", a: ["JEFFREY ALAN WOODS", "JEFF HENDERSON", "JAMES WILLIAMS"], correct: 0 },
@@ -1501,19 +1507,19 @@
         setTimeout(() => {
             document.body.style.filter = "none";
             const sprite = document.getElementById('game-sprite');
-            if (sprite) { sprite.style.filter = "grayscale(100%) brightness(1.3) contrast(300%)"; sprite.src = "./photos/aleeya2.jpg"; }
+            if (sprite) { sprite.style.filter = "grayscale(100%) brightness(1.3) contrast(300%)"; sprite.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs"; }
 
             gameContainer.innerHTML = `
                 <h1 class="font-headline-sm text-error tracking-widest text-center uppercase border-b border-[#353535] w-full pb-4 animate-pulse text-lg">
                     KAU DAH MENANG.
                 </h1>
                 <div class="w-48 h-56 relative flex justify-center items-end bg-black border border-error overflow-hidden">
-                    <img alt="Creepy stare" class="w-full h-full object-cover grayscale brightness-125 contrast-200" src="./photos/aleeya2.jpg"/>
+                    <img alt="Jeff the Killer" class="w-full h-full object-cover grayscale brightness-125 contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs"/>
                 </div>
                 <div class="w-full font-label-mono text-label-mono text-error text-center px-4 py-4 border border-error bg-red-950/20 leading-relaxed uppercase text-xs">
-                    TAPI KAU TAKKAN LEPAS DARIPADA AKU.<br/>
-                    JUMPA DI 1/32 JALAN PUTRA, SEGAMAT.<br/>
-                    AKU TUNGGU KAU DATANG...
+                    JEFF SEKARANG INI SUDAH ADA DI RUMAH ITU.<br/>
+                    DIA TENGAH TENGOK DARI DALAM GELAP. SEKARANG. MALAM INI.<br/>
+                    PINTU BELAKANG SUDAH BERBUNYI TIGA KALI.
                 </div>
                 <button onclick="restartQuiz()" class="game-btn font-label-mono text-label-mono text-[#F5F5F5] bg-error-container border border-error py-3 px-6 hover:bg-error transition-colors uppercase mt-2 w-full cursor-pointer text-xs">
                     CUBA LAGI
@@ -1959,7 +1965,7 @@
                 </div>
                 <div class="w-full font-label-mono text-label-mono text-primary text-center px-4 py-4 border border-primary bg-red-950/20 leading-relaxed uppercase text-xs">
                     KAU BERJAYA LEPAS MALAM NI...<br/>
-                    TAPI JEFF AKAN SENTIASA PERHATI KAU DARI JALAN PUTRA.<br/>
+                    TAPI JEFF AKAN SENTIASA PERHATI KAU DARI RUMAH ITU.<br/>
                     GO TO SLEEP... TIDURLAH...
                 </div>
                 <button onclick="showScreen('dunia-gelap')" class="game-btn font-label-mono text-on-primary bg-primary border border-primary py-3 px-6 hover:bg-error transition-colors uppercase w-full cursor-pointer text-xs mt-2">WAKE UP</button>
