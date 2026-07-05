@@ -1,10 +1,1432 @@
 <!DOCTYPE html>
-<html>
+<html class="dark scroll-smooth" lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=code/index.html" />
-  <title>Redirecting...</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ALEEYA // PSYCHOLOGICAL HORROR PORTFOLIO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Syne:wght@400..800&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#c7c6c6",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "on-primary-fixed-variant": "#920703",
+                      "surface-bright": "#393939",
+                      "on-secondary-fixed-variant": "#454747",
+                      "surface-tint": "#ffb4a8",
+                      "tertiary-container": "#414242",
+                      "surface-container-highest": "#353535",
+                      "surface-variant": "#353535",
+                      "surface-dim": "#131313",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-background": "#e2e2e2",
+                      "secondary-container": "#454747",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "primary-container": "#8b0000",
+                      "background": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e2e2e2",
+                      "surface-container": "#1f1f1f",
+                      "inverse-primary": "#b52619",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-error": "#690005",
+                      "primary": "#ffb4a8",
+                      "on-secondary": "#2f3131",
+                      "on-tertiary-fixed-variant": "#464747",
+                      "error-container": "#93000a",
+                      "inverse-on-surface": "#303030",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed": "#e3e2e2",
+                      "surface": "#131313",
+                      "surface-container-low": "#1b1b1b",
+                      "primary-fixed": "#ffdad4",
+                      "outline-variant": "#5a403c",
+                      "on-tertiary-container": "#aeaeae",
+                      "on-primary": "#690000",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "on-primary-container": "#ff907f",
+                      "secondary": "#c6c6c7",
+                      "tertiary": "#c7c6c6",
+                      "on-secondary-container": "#b4b5b5",
+                      "on-surface": "#e2e2e2",
+                      "on-surface-variant": "#e3beb8",
+                      "inverse-surface": "#e2e2e2",
+                      "on-primary-fixed": "#410000",
+                      "outline": "#aa8984",
+                      "on-tertiary": "#2f3131",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "stack-lg": "6rem",
+                      "stack-sm": "1rem",
+                      "margin-safe": "4rem",
+                      "stack-md": "3rem"
+              },
+              "fontFamily": {
+                      "label-sm": ["Space Mono"],
+                      "label-mono": ["Space Mono"],
+                      "body-md": ["Inter"],
+                      "subhead-tech": ["Space Mono"],
+                      "headline-lg-mobile": ["Syne"],
+                      "headline-lg": ["Syne"],
+                      "display-lg": ["Syne"]
+              }
+            }
+          }
+        }
+    </script>
+    <style>
+        /* Base Scanlines and Vignette Overlays */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%,
+                rgba(0, 0, 0, 0.25)
+            );
+            background-size: 100% 4px;
+            z-index: 50;
+            opacity: 0.3;
+        }
+        .vignette {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        /* Glitch text effects */
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #ffb4a8;
+            clip: rect(24px, 9999px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #93000a;
+            clip: rect(85px, 9999px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(66px, 9999px, 86px, 0); }
+            20% { clip: rect(51px, 9999px, 12px, 0); }
+            40% { clip: rect(98px, 9999px, 34px, 0); }
+            60% { clip: rect(21px, 9999px, 76px, 0); }
+            80% { clip: rect(78px, 9999px, 51px, 0); }
+            100% { clip: rect(4px, 9999px, 98px, 0); }
+        }
+
+        /* Flicker effects */
+        .flicker {
+            animation: flicker 4s infinite;
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.2; }
+        }
+        .flicker-anim {
+            animation: flicker-fast 0.15s infinite;
+        }
+        @keyframes flicker-fast {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .redacted-hover:hover {
+            background-color: transparent !important;
+            color: #ffb4a8 !important;
+        }
+        .nav-glitch-hover:hover {
+            animation: glitch-anim-nav 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #ffb4a8;
+            background-color: rgba(139, 0, 0, 0.2);
+        }
+        @keyframes glitch-anim-nav {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* School & Vault specific custom styles */
+        .torn-paper {
+            background-color: #0e0e0e;
+            position: relative;
+            border: 1px solid #353535;
+        }
+        .inner-glow {
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+        }
+        .active-glow {
+            border: 1px solid #8b0000;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.3), inset 0 0 15px rgba(139, 0, 0, 0.2);
+        }
+
+        /* Stalker Terminal typewriter cursor */
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #ffb4a8;
+            animation: blink 1s step-end infinite;
+            vertical-align: bottom;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Webcam border and card styles */
+        .cyber-border {
+            border: 1px solid #353535;
+            position: relative;
+        }
+        .cyber-border::before {
+            content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border: 1px solid #ffb4a8;
+            opacity: 0.1; pointer-events: none;
+        }
+        .cyber-border:hover::before { opacity: 0.5; }
+
+        /* Jumpscares and shake animations */
+        .jumpscare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8);
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: multiply;
+        }
+        .violent-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            filter: hue-rotate(90deg) contrast(150%);
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-4px, 2px, 0); }
+            20%, 80% { transform: translate3d(8px, -4px, 0); }
+            30%, 50%, 70% { transform: translate3d(-12px, 6px, 0); }
+            40%, 60% { transform: translate3d(12px, -6px, 0); }
+        }
+
+        /* Screen Transitions Glitch Strobe */
+        #glitch-transition {
+            position: fixed;
+            inset: 0;
+            z-index: 9990;
+            background: #000;
+            opacity: 0;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.99" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+            mix-blend-mode: difference;
+        }
+        .transitioning #glitch-transition {
+            animation: strobe 0.3s steps(4) forwards;
+            pointer-events: auto;
+        }
+        @keyframes strobe {
+            0% { opacity: 0; }
+            25% { opacity: 0.8; background-color: #8b0000; }
+            50% { opacity: 0.5; background-color: #000; }
+            75% { opacity: 0.9; background-color: #550000; }
+            100% { opacity: 0; }
+        }
+
+        /* Dynamic screen display toggles */
+        .screen-section {
+            display: none;
+        }
+        .screen-section.active-screen {
+            display: block;
+        }
+
+        /* Creepy Eyes CSS */
+        .eyes-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 30;
+            opacity: 0.5;
+        }
+        .eye {
+            width: 24px;
+            height: 12px;
+            background: #000;
+            border: 1px solid #ffb4a8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .pupil {
+            width: 6px;
+            height: 6px;
+            background: #ffb4a8;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.1s;
+        }
+
+        /* Gallery static overlay cards */
+        .card-static {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-static::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            mix-blend-mode: overlay;
+        }
+        .card-static:hover::after {
+            opacity: 0.15;
+        }
+
+        /* Blood Splatter particles for math game */
+        .blood-particle {
+            position: absolute;
+            background-color: #8b0000;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: splatter 0.6s ease-out forwards;
+        }
+        @keyframes splatter {
+            0% { transform: scale(1) translate(0, 0); opacity: 1; }
+            100% { transform: scale(0) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+
+        /* Active Navigation indicator styling */
+        .active-nav-btn {
+            color: #ffb4a8 !important;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 180, 168, 0.6);
+        }
+        .active-mob-btn {
+            color: #ffb4a8 !important;
+            transform: scale(1.1);
+            opacity: 1 !important;
+        }
+    </style>
 </head>
-<body>
-  <p>Redirecting to <a href="code/index.html">Aleeya's Psychological Horror Portfolio</a>...</p>
+<body class="bg-background text-on-background font-body-md min-h-screen relative overflow-x-hidden antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- Global WebGL Background Shader -->
+    <div class="fixed inset-0 w-full h-full z-[-1] pointer-events-none transition-opacity duration-500" id="global-shader-container" style="opacity: 0.2;">
+        <canvas id="bg-shader-canvas" style="display:block;width:100%;height:100%"></canvas>
+    </div>
+
+    <!-- Scanline overlays -->
+    <div class="scanlines" id="game-scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- Transition overlay screen -->
+    <div id="glitch-transition"></div>
+
+    <!-- School Jumpscare Overlay -->
+    <div class="jumpscare" id="jumpscare"></div>
+
+    <!-- Global Jeff the Killer Jumpscare (triggered from gallery click) -->
+    <div id="jeff-jumpscare" class="fixed inset-0 w-full h-full bg-black z-[9999] opacity-0 pointer-events-none transition-opacity duration-75 flex flex-col items-center justify-center">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8'); filter: contrast(200%) brightness(1.2) sepia(0.5) hue-rotate(-50deg); background-size: cover; background-position: center;"></div>
+        <div class="absolute inset-0 bg-red-950/40 mix-blend-color"></div>
+        <h1 class="font-display-lg text-display-lg text-primary animate-pulse tracking-widest z-10 uppercase text-center leading-none">
+            GO TO SLEEP<br/><span class="text-error text-headline-lg">TIDURLAH...</span>
+        </h1>
+    </div>
+
+    <!-- Stalker Terminal Webcam Hack Overlay -->
+    <div id="webcam-glitch" class="fixed inset-0 w-full h-full bg-black z-[9999] opacity-0 pointer-events-none transition-opacity duration-75 flex items-center justify-center">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8'); filter: contrast(300%) grayscale(100%) invert(100%); background-size: cover; background-position: center;"></div>
+        <div class="absolute inset-0 bg-red-950/50 mix-blend-color"></div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- SCREEN 1: NORMAL PORTFOLIO HOMEPAGE        -->
+    <!-- ========================================== -->
+    <div id="screen-home" class="screen-section active-screen">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-transparent flex justify-between items-center px-gutter py-4 z-50 flat no shadows text-on-surface font-subhead-tech text-subhead-tech hidden md:flex">
+            <div class="font-display-lg text-display-lg text-primary opacity-20 hover:opacity-100 transition-opacity duration-700 flicker hover:scale-105">ALEEYA</div>
+            <div class="flex gap-4 items-center">
+                <button class="hover:text-primary transition-colors duration-300" onclick="toggleNav()">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Side Navigation Drawer -->
+        <aside class="fixed left-0 h-full w-80 bg-surface-dim/95 border-r border-outline-variant bg-surface-container-lowest shadow-2xl flex flex-col py-stack-sm z-[60] transform -translate-x-full transition-transform duration-500 font-subhead-tech text-subhead-tech" id="side-nav">
+            <div class="px-6 mb-12">
+                <h2 class="font-headline-lg text-headline-lg text-primary-container">ALEEYA</h2>
+                <p class="text-error-container font-label-sm text-label-sm uppercase tracking-widest mt-2">GO TO SLEEP</p>
+            </div>
+            <nav class="flex flex-col gap-2">
+                <a class="text-primary-fixed border-l-4 border-primary-container pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4 cursor-pointer" onclick="scrollToId('hero'); toggleNav()">
+                    <span class="material-symbols-outlined">visibility</span> OBSERVE
+                </a>
+                <a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4 cursor-pointer" onclick="scrollToId('about'); toggleNav()">
+                    <span class="material-symbols-outlined">lock</span> REDACTED
+                </a>
+                <a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4 cursor-pointer" onclick="scrollToId('school'); toggleNav()">
+                    <span class="material-symbols-outlined">edit_note</span> MANIFESTO
+                </a>
+                <a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4 cursor-pointer" onclick="scrollToId('contact'); toggleNav()">
+                    <span class="material-symbols-outlined">radio_button_unchecked</span> VOID
+                </a>
+                <a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4 cursor-pointer" onclick="showScreen('dunia-gelap'); toggleNav()">
+                    <span class="material-symbols-outlined">bedtime</span> SLEEP
+                </a>
+            </nav>
+            <button class="absolute top-4 right-4 text-on-surface hover:text-primary" onclick="toggleNav()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </aside>
+
+        <!-- Mobile header trigger -->
+        <div class="fixed top-4 right-4 z-50 md:hidden">
+            <button class="bg-[#1f1f1f]/80 p-2 border border-[#333] text-primary" onclick="toggleNav()">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </button>
+        </div>
+
+        <main class="relative z-10 px-margin-safe md:px-margin-safe pb-stack-lg max-w-[1440px] mx-auto">
+            <!-- Hero -->
+            <section class="min-h-screen flex flex-col justify-center items-center text-center pt-24 mb-stack-lg relative" id="hero">
+                <h1 class="font-display-lg text-display-lg md:text-[120px] text-on-surface tracking-tighter uppercase glitch-text mb-4" data-text="ALEEYA">
+                    ALEEYA
+                </h1>
+                <p class="font-label-sm text-label-sm text-error-container tracking-[0.3em] uppercase flicker">
+                    Go to Sleep.
+                </p>
+                <a class="absolute bottom-12 flex flex-col items-center gap-2 text-on-surface-variant hover:text-primary transition-colors flicker opacity-50 cursor-pointer" onclick="scrollToId('about')">
+                    <span class="font-label-sm text-label-sm tracking-widest">DEEPER</span>
+                    <span class="material-symbols-outlined text-2xl animate-bounce">keyboard_arrow_down</span>
+                </a>
+            </section>
+
+            <!-- About -->
+            <section class="min-h-screen flex items-center py-stack-lg" id="about">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
+                    <div class="col-span-1 md:col-span-4 flex items-start">
+                        <h2 class="font-subhead-tech text-subhead-tech text-outline uppercase tracking-widest border-l border-primary-container pl-4">WHO AM I?</h2>
+                    </div>
+                    <div class="col-span-1 md:col-span-8 bg-surface-container-highest/20 border border-outline-variant p-8 relative overflow-hidden group hover:border-primary-container transition-colors duration-500">
+                        <div class="absolute inset-0 bg-primary-container/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <p class="font-body-md text-body-md text-on-background mb-6 leading-relaxed relative z-10">
+                            Entity identified as a 16-year-old student. Confined within the parameters of <span class="bg-error-container text-error-container redacted-hover px-1 cursor-crosshair transition-all duration-300 select-none">SMK Paduka Tuan</span>. 
+                            Designation: <span class="font-subhead-tech text-primary">Class 4 SK5</span>.
+                        </p>
+                        <p class="font-body-md text-body-md text-on-surface-variant relative z-10 opacity-70">
+                            Operating in low-power mode. Processing reality...
+                        </p>
+                        <div class="mt-8 flex gap-4 flex-wrap z-10 relative">
+                            <span class="border border-error-container text-error-container font-label-sm text-label-sm px-3 py-1 uppercase">Student</span>
+                            <span class="border border-error-container text-error-container font-label-sm text-label-sm px-3 py-1 uppercase">Age: 16</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- School -->
+            <section class="min-h-screen flex flex-col justify-center py-stack-lg relative" id="school">
+                <div class="absolute right-0 top-1/4 w-64 h-64 border border-outline-variant/30 rotate-12 opacity-20 pointer-events-none"></div>
+                <div class="max-w-4xl w-full mx-auto relative z-10">
+                    <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-12 border-b border-outline-variant/50 pb-4 inline-block">INSTITUTION</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="border border-outline-variant p-6 hover:bg-surface-container-high/50 transition-colors group">
+                            <div class="font-label-sm text-label-sm text-primary-container mb-4 opacity-50 group-hover:opacity-100 group-hover:flicker">LOCATION_DATA</div>
+                            <h3 class="font-subhead-tech text-subhead-tech text-on-surface mb-2">Segamat, Johor</h3>
+                            <p class="text-on-surface-variant text-sm opacity-80">Coordinates locked. The physical anchor point in this current iteration.</p>
+                        </div>
+                        <div class="border border-outline-variant p-6 hover:bg-surface-container-high/50 transition-colors group">
+                            <div class="font-label-sm text-label-sm text-primary-container mb-4 opacity-50 group-hover:opacity-100 group-hover:flicker">FACILITY_ID</div>
+                            <h3 class="font-subhead-tech text-subhead-tech text-on-surface mb-2">SMK Paduka Tuan</h3>
+                            <p class="text-on-surface-variant text-sm opacity-80">Sector 4 SK5. Daily cycles repeating. Waiting for sequence break.</p>
+                        </div>
+                    </div>
+                    <!-- Hallway photo -->
+                    <div class="mt-12 border border-outline-variant h-64 w-full relative overflow-hidden group">
+                        <div class="bg-cover bg-center w-full h-full grayscale group-hover:grayscale-0 group-hover:sepia transition-all duration-700 opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
+                        <div class="absolute inset-0 bg-background/40 mix-blend-multiply group-hover:bg-primary-container/20 transition-colors"></div>
+                        <span class="absolute bottom-4 left-4 font-label-sm text-label-sm text-on-surface bg-background/80 px-2 border border-outline-variant">SURVEILLANCE_CAM_04</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="min-h-screen flex flex-col items-center justify-center gap-8 py-stack-lg" id="contact">
+                <div class="w-full max-w-lg border border-outline-variant bg-surface-container-low/80 p-8 shadow-2xl relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-primary-container"></div>
+                    <h2 class="font-subhead-tech text-subhead-tech text-on-surface mb-8 glitch-text" data-text="LEAVE A MESSAGE">LEAVE A MESSAGE</h2>
+                    <form class="flex flex-col gap-8">
+                        <div class="relative group">
+                            <input class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors" id="identifier" placeholder="Identifier" type="text"/>
+                            <label class="absolute left-0 top-2 font-label-sm text-label-sm text-on-surface-variant peer-focus:-top-4 peer-focus:text-primary-container peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="identifier">Identifier</label>
+                        </div>
+                        <div class="relative group">
+                            <textarea class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors resize-none" id="transmission" placeholder="Transmission" rows="4"></textarea>
+                            <label class="absolute left-0 top-2 font-label-sm text-label-sm text-on-surface-variant peer-focus:-top-4 peer-focus:text-primary-container peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="transmission">Transmission Log</label>
+                        </div>
+                        <button class="border border-outline-variant text-on-surface font-subhead-tech text-subhead-tech py-4 px-6 hover:bg-primary-container hover:text-white transition-all duration-300 uppercase tracking-widest mt-4 self-end relative overflow-hidden group/btn" type="button" onclick="alert('Mesej anda telah dihantar ke dalam lohong hitam (Void).')">
+                            <span class="relative z-10 group-hover/btn:animate-[glitch-anim-nav_0.2s_infinite]">SEND TO VOID</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full py-stack-md border-t border-outline-variant/30 bg-background flex flex-col items-center justify-center space-y-4 font-label-sm text-label-sm text-on-secondary-fixed-variant relative z-50">
+            <p class="uppercase tracking-widest text-on-surface">© 2024 THE VOID STARETH BACK</p>
+            <div class="flex gap-4">
+                <a class="text-on-secondary-fixed-variant hover:text-error transition-colors opacity-50 hover:opacity-100" href="#">Terms of Silence</a>
+                <a class="text-on-secondary-fixed-variant hover:text-error transition-colors opacity-50 hover:opacity-100" href="#">Privacy Decay</a>
+            </div>
+            <button onclick="showScreen('dunia-gelap')" class="bg-red-950/20 border border-red-900/50 px-4 py-2 hover:bg-red-900 hover:text-white transition-all text-error font-label-mono text-xs uppercase tracking-widest">
+                [ INIT_SLEEP_SEQUENCE ]
+            </button>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- SHIELDED SHELL FOR DARK WORLD PAGES        -->
+    <!-- ========================================== -->
+    <div id="dark-shell" class="hidden">
+        <!-- Global Dark Header -->
+        <header class="fixed top-0 w-full bg-surface/80 backdrop-blur-sm bg-surface-container-low/50 z-50 flex justify-between items-center px-margin-edge py-unit border-b border-surface-container-low/50">
+            <div class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary animate-pulse tracking-tighter cursor-pointer" onclick="showScreen('dunia-gelap')">ALEEYA</div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a id="nav-btn-dunia-gelap" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('dunia-gelap')">Observe</a>
+                <a id="nav-btn-profil" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('profil')">Redacted</a>
+                <a id="nav-btn-sekolah" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('sekolah')">Vault</a>
+                <a id="nav-btn-galeri" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('galeri')">Whispers</a>
+                <a id="nav-btn-terminal" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('terminal')">Terminal</a>
+                <a id="nav-btn-game" class="text-on-surface-variant font-label-mono text-label-mono hover:text-primary transition-transform cursor-pointer" onclick="showScreen('game')">Arcade</a>
+                <a class="text-error font-bold font-label-mono text-label-mono hover:underline cursor-pointer" onclick="showScreen('home')">WakeUp</a>
+            </div>
+        </header>
+
+        <!-- Main Content Sections Swapped Dynamically -->
+        <div id="dark-main-content">
+            
+            <!-- SECTION A: DUNIA GELAP UTAMA -->
+            <div id="main-dunia-gelap" class="main-section hidden">
+                <main class="relative z-10 pt-24 pb-32 px-margin-edge min-h-screen flex flex-col items-center justify-center">
+                    <div class="relative w-full max-w-[800px] flex flex-col items-center justify-center min-h-[60vh]">
+                        <!-- Central Sprite -->
+                        <div class="relative w-64 h-80 md:w-80 md:h-96 mb-8 mt-12 flicker">
+                            <img alt="Nur Aleeya Batrisya" class="w-full h-full object-cover rounded-none border border-surface-variant/30 shadow-[inset_0_0_20px_rgba(139,0,0,0.2)]" src="./photos/aleeya1.jpg"/>
+                            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none mix-blend-overlay"></div>
+                        </div>
+
+                        <!-- Status text -->
+                        <div class="font-label-mono text-label-mono text-on-surface-variant mb-6 text-center leading-relaxed">
+                            <p class="text-error tracking-[0.2em] font-bold uppercase flicker">DUNIA GELAP PORTAL</p>
+                            <p class="text-xs text-on-surface-variant/40 mt-1 uppercase">SYSTEM_ONLINE // TARGET_LOCKED</p>
+                        </div>
+
+                        <!-- Start button -->
+                        <button onclick="showScreen('profil')" class="px-8 py-4 bg-primary text-on-primary font-label-mono text-label-mono font-bold tracking-widest transition-all duration-300 transform hover:scale-105 hover:bg-error hover:text-white border border-[#222] hover:border-error shadow-[0_0_15px_rgba(255,180,168,0.2)] hover:shadow-[0_0_25px_rgba(255,180,168,0.5)] uppercase flex items-center gap-2 relative overflow-hidden group/btn cursor-pointer">
+                            <span class="material-symbols-outlined group-hover:animate-pulse">lock_open</span>
+                            START OVERRIDE
+                        </button>
+                    </div>
+                </main>
+            </div>
+
+            <!-- SECTION B: PROFIL TENTANG SAYA -->
+            <div id="main-profil" class="main-section hidden">
+                <main class="flex-grow pt-32 pb-32 px-gutter md:px-margin-edge max-w-[1440px] mx-auto w-full relative z-10 flex flex-col items-center justify-center min-h-screen">
+                    <!-- Creepy Eyes inside container -->
+                    <div class="eyes-container flex" id="creepyEyes">
+                        <div class="eye"><div class="pupil"></div></div>
+                        <div class="eye"><div class="pupil"></div></div>
+                    </div>
+                    <div class="w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                        <!-- Profile Image -->
+                        <div class="col-span-1 md:col-span-5 flex flex-col items-center md:items-start gap-8">
+                            <div class="relative group border border-[#393939] p-2 bg-surface-container-lowest w-full max-w-sm glitch-hover">
+                                <img alt="Profile Portrait" class="w-full aspect-square object-cover filter grayscale contrast-125 sepia-[.3] hue-rotate-[-30deg]" src="./photos/aleeya2.jpg"/>
+                                <div class="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dossier details -->
+                        <div class="col-span-1 md:col-span-7 flex flex-col justify-center gap-8 pl-0 md:pl-12 border-l-0 md:border-l border-[#393939]">
+                            <div>
+                                <h1 class="font-headline-md text-headline-md text-primary mb-2 uppercase tracking-widest border-b border-[#393939] inline-block pb-2">TENTANG SAYA</h1>
+                                <p class="font-label-mono text-label-mono text-on-surface-variant mt-4">&gt;&gt; ACCESSING DIGITAL DOSSIER...</p>
+                            </div>
+                            <div class="space-y-6 font-label-mono text-label-mono text-on-surface">
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">NAME:</span>
+                                    <span class="text-primary blur-sm group-hover:blur-none transition-all duration-500">Nur Aleeya Batrisya Binti Nor Azizi (akaun: nur aleya)</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">GENDER:</span>
+                                    <span class="blur-sm group-hover:blur-none transition-all duration-500">Perempuan</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">BIRTHDAY:</span>
+                                    <span class="blur-sm group-hover:blur-none transition-all duration-500">20 Mac 2010 (Umur: 16 Tahun)</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">HEIGHT:</span>
+                                    <span class="blur-sm group-hover:blur-none transition-all duration-500">152 cm</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">WEIGHT:</span>
+                                    <span class="blur-sm group-hover:blur-none transition-all duration-500">41 kg - 53 kg (Ideal BMI)</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">ADDRESS:</span>
+                                    <span class="blur-sm group-hover:blur-none transition-all duration-500">1/32 Jalan Putra, Segamat, Johor</span>
+                                </div>
+                                <div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group cursor-crosshair">
+                                    <span class="text-on-surface-variant w-24 shrink-0">MINAT:</span>
+                                    <span class="text-error blur-sm group-hover:blur-none transition-all duration-500">Creepypasta, Stalking, Math games</span>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <button onclick="showScreen('terminal')" class="bg-primary-container text-[#F5F5F5] font-label-mono text-label-mono px-8 py-4 uppercase tracking-widest hover:animate-[flicker-anim_0.5s_infinite] hover:translate-x-1 transition-all border border-transparent hover:border-primary cursor-pointer">
+                                    Initiate Override Sequence
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- SECTION C: VAULT SEKOLAH SAYA -->
+            <div id="main-sekolah" class="main-section hidden">
+                <main class="relative z-10 pt-32 px-gutter md:px-margin-edge max-w-[1440px] mx-auto flex flex-col items-center min-h-screen">
+                    <div class="w-full text-center mb-12">
+                        <h1 class="font-headline-md text-headline-md text-on-background uppercase tracking-widest mb-2 opacity-80">SEKOLAH SAYA</h1>
+                        <h2 class="font-label-mono text-label-mono text-primary animate-pulse tracking-[0.2em] uppercase">My Daily Obsession Dossier</h2>
+                        <div class="h-px w-32 bg-surface-variant mx-auto mt-6"></div>
+                    </div>
+                    <!-- Schedule / Dossier Container -->
+                    <section class="w-full md:w-10/12 lg:w-8/12 grid grid-cols-1 md:grid-cols-12 gap-gutter mb-20">
+                        <div class="md:col-span-12 torn-paper p-6 inner-glow mb-4 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay transition-opacity group-hover:opacity-30 grayscale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-1 z-10 relative">TARGET: 4 SK5</h3>
+                            <p class="font-label-mono text-label-mono text-on-surface-variant z-10 relative">LOCATION: SMK PADUKA TUAN</p>
+                        </div>
+                        <div class="md:col-span-12 flex flex-col gap-4 relative">
+                            <!-- Vertical timeline line -->
+                            <div class="absolute left-6 top-0 bottom-0 w-px bg-surface-variant z-0 hidden md:block"></div>
+                            
+                            <div class="bg-surface-container-lowest p-4 pl-12 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors glitch-hover cursor-crosshair">
+                                <span class="material-symbols-outlined text-primary absolute left-4 md:left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">opacity</span>
+                                <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
+                                    <span class="font-label-mono text-label-mono text-on-surface-variant">07:30 - 08:00</span>
+                                    <span class="font-label-mono text-label-mono text-primary text-xs border border-primary px-1">OBSERVE</span>
+                                </div>
+                                <h4 class="font-body-lg text-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Perhimpunan</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant opacity-70">Target remains stationary in formation. Unprotected.</p>
+                            </div>
+                            
+                            <div class="bg-surface-container-lowest p-4 pl-12 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors glitch-hover cursor-crosshair">
+                                <span class="material-symbols-outlined text-primary absolute left-4 md:left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">opacity</span>
+                                <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
+                                    <span class="font-label-mono text-label-mono text-on-surface-variant">08:00 - 09:30</span>
+                                    <span class="font-label-mono text-label-mono text-outline text-xs border border-outline px-1">RECORD</span>
+                                </div>
+                                <h4 class="font-body-lg text-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Matematik Tambahan</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant opacity-70">Focus is on equations. Perfect time to catalog expressions.</p>
+                            </div>
+                            
+                            <div class="bg-surface-container-lowest p-4 pl-12 md:pl-16 active-glow relative group hover:bg-surface-dim transition-colors glitch-hover cursor-crosshair">
+                                <span class="material-symbols-outlined text-primary absolute left-4 md:left-4 top-4 opacity-100 flicker" style="font-variation-settings: 'FILL' 1;">bloodtype</span>
+                                <div class="flex justify-between items-start border-b border-primary/50 pb-2 mb-2">
+                                    <span class="font-label-mono text-label-mono text-primary">09:30 - 10:00</span>
+                                    <span class="font-label-mono text-label-mono text-error text-xs border border-error bg-error/10 px-1 animate-pulse">REHAT</span>
+                                </div>
+                                <h4 class="font-body-lg text-body-lg text-on-background font-bold mb-1 group-hover:text-error transition-colors">Kantin</h4>
+                                <p class="font-body-md text-body-md text-error opacity-90 line-through decoration-primary">Subject interaction detected.</p>
+                                <p class="font-body-md text-body-md text-primary mt-1 text-sm">Action required. Isolation protocols initiated.</p>
+                            </div>
+                            
+                            <div class="bg-surface-container-lowest p-4 pl-12 md:pl-16 inner-glow relative group hover:bg-surface-dim transition-colors glitch-hover cursor-crosshair">
+                                <span class="material-symbols-outlined text-primary absolute left-4 md:left-4 top-4 opacity-60 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">opacity</span>
+                                <div class="flex justify-between items-start border-b border-surface-variant pb-2 mb-2">
+                                    <span class="font-label-mono text-label-mono text-on-surface-variant">10:00 - 11:30</span>
+                                    <span class="font-label-mono text-label-mono text-outline text-xs border border-outline px-1">ARCHIVE</span>
+                                </div>
+                                <h4 class="font-body-lg text-body-lg text-on-background font-bold mb-1 group-hover:text-primary transition-colors">Fizik</h4>
+                                <p class="font-body-md text-body-md text-on-surface-variant opacity-70">Lab session. Gathering discarded materials.</p>
+                            </div>
+                        </div>
+                        <div class="md:col-span-12 mt-8 overflow-hidden opacity-20 pointer-events-none">
+                            <p class="font-label-mono text-[10px] text-primary break-all leading-none text-justify">
+                                4SK5 4SK5 4SK5 4SK5 SMK PADUKA TUAN SMK PADUKA TUAN WATCHING WATCHING WATCHING WATCHING WATCHING ALWAYS WATCHING NEVER ALONE 4SK5 4SK5 4SK5 4SK5 SMK PADUKA TUAN SMK PADUKA TUAN WATCHING WATCHING WATCHING WATCHING WATCHING ALWAYS WATCHING NEVER ALONE
+                            </p>
+                        </div>
+                    </section>
+                </main>
+            </div>
+
+            <!-- SECTION D: TERMINAL PENGINTIP -->
+            <div id="main-terminal" class="main-section hidden">
+                <main class="flex-grow flex items-center justify-center px-gutter md:px-margin-edge relative z-10 min-h-screen">
+                    <div class="w-full max-w-[1200px] bg-surface-container-lowest cyber-border p-6 md:p-12 relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-surface-variant">
+                            <div class="h-full bg-primary flicker-anim w-[73%]"></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <!-- Target Webcam card -->
+                            <div class="w-full md:w-1/3 shrink-0 relative">
+                                <div class="cyber-border p-2 bg-surface-dim relative overflow-hidden group-hover:bg-primary-container transition-colors duration-700">
+                                    <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 mix-blend-overlay z-10 transition-opacity"></div>
+                                    <img class="w-full h-auto aspect-square object-cover grayscale mix-blend-luminosity opacity-80 filter contrast-150 brightness-75" src="./photos/amiruddin.jpg" alt="Muhammad Amiruddin Arsyad"/>
+                                    <div class="absolute bottom-2 right-2 text-primary font-label-mono text-label-mono z-20">
+                                        <span class="material-symbols-outlined glitch-anim" style="font-size: 16px;">visibility</span> CAM_04
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Terminal logs -->
+                            <div class="w-full md:w-2/3 flex flex-col gap-6 font-label-mono text-label-mono text-secondary">
+                                <div class="border-b border-surface-variant pb-2 mb-4">
+                                    <h1 class="text-primary font-headline-md md:font-display-lg text-display-lg-mobile glitch-anim tracking-tighter uppercase mb-2">
+                                        TERMINAL PENGINTIP //
+                                    </h1>
+                                    <h2 class="text-error uppercase tracking-widest text-sm">SASARAN: AMIRUDDIN ARSYAD</h2>
+                                </div>
+                                <div class="whitespace-pre-wrap leading-relaxed min-h-[260px] text-xs md:text-sm font-bold" id="terminal-output"></div>
+                                <div class="mt-8 flex items-center gap-4 text-outline-variant text-xs">
+                                    <span class="material-symbols-outlined animate-pulse">warning</span>
+                                    <span>BREACH STATUS: IN PROGRESS [████████░░]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- SECTION E: WHISPERS (HUBUNGI & GALERI) -->
+            <div id="main-galeri" class="main-section hidden">
+                <main class="relative z-10 pt-32 pb-32 px-gutter md:px-margin-edge max-w-[1440px] mx-auto min-h-screen">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <!-- Message Box -->
+                        <div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+                            <div class="bg-[#0e0e0e] border border-outline-variant p-8 shadow-2xl relative">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+                                <h2 class="font-subhead-tech text-subhead-tech text-primary mb-6 tracking-widest uppercase">CONTACT SYSTEM // WHISPER</h2>
+                                <form class="flex flex-col gap-6">
+                                    <div class="relative group">
+                                        <input class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors" id="whisper-id" placeholder="Identifier" type="text"/>
+                                        <label class="absolute left-0 top-2 font-label-mono text-label-mono text-on-surface-variant text-xs peer-focus:-top-4 peer-focus:text-primary peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="whisper-id">IDENTIFIER</label>
+                                    </div>
+                                    <div class="relative group">
+                                        <textarea class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors resize-none" id="whisper-log" placeholder="Transmission" rows="4"></textarea>
+                                        <label class="absolute left-0 top-2 font-label-mono text-label-mono text-on-surface-variant text-xs peer-focus:-top-4 peer-focus:text-primary peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="whisper-log">TRANSMISSION LOG</label>
+                                    </div>
+                                    <button class="border border-outline-variant text-on-surface font-subhead-tech text-subhead-tech py-4 px-6 hover:bg-primary-container hover:text-white transition-all duration-300 uppercase tracking-widest mt-4 self-end relative overflow-hidden group/btn cursor-pointer" type="button" onclick="alert('Log transmisi anda telah dihantar ke dalam pangkalan data tersembunyi.')">
+                                        <span class="relative z-10">SEND TRANSMISSION</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- Awaiting connection link -->
+                            <div class="text-center mt-4">
+                                <a onclick="showScreen('game')" class="font-label-mono text-label-mono text-error hover:text-primary transition-colors cursor-pointer text-xs tracking-widest animate-pulse">
+                                    [ AWAITING_CONNECTION... INITIATE MINI GAME ]
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Gallery items -->
+                        <div class="col-span-12 lg:col-span-8 flex flex-col gap-4">
+                            <h2 class="font-headline-sm text-headline-sm text-on-surface mb-2 px-2 border-l-4 border-primary-container">VISUAL ARTIFACTS // OBSESSION</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Gallery Item 1 (Jumpscare click) -->
+                                <div class="bg-[#0E0E0E] aspect-square relative cursor-pointer card-static group" onclick="triggerJeffJumpscare()">
+                                    <img class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity mix-blend-luminosity group-hover:mix-blend-normal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7WIij2iFspB5vHbz_lFpv1FPoECawCcFk520EzrDRtUf6dRV8zh7YtKQET9onOr_VR6noONqYcdVFWALj_19kZcB0UUj3xVj5GV0vDsytrbB-i1rEZycHqY097UNQUkLb7AH7a8jh2jnNk3KkFgQuEXubk82Qvw3H3AY2UMC3sS8-KaqYgPVCNRrKXMun7_er3W2J_0RmQhLk3isK5ht-_twLpMN3wnJSuSHvARbIADSxakUuJ2kJMxNsnpFp-Qqw_wnGboTsIs" alt="Jeff the Killer"/>
+                                    <div class="absolute inset-0 border border-[#393939] pointer-events-none group-hover:border-primary-container transition-colors shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"></div>
+                                    <span class="material-symbols-outlined absolute bottom-2 right-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">open_in_full</span>
+                                </div>
+                                <!-- Gallery Item 2 -->
+                                <div class="bg-[#0E0E0E] aspect-square relative cursor-pointer card-static group" onclick="alert('Artifact 02: Target Selfie 1 locked.')">
+                                    <div class="w-full h-full bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" style="background-image: url('./photos/aleeya1.jpg')"></div>
+                                    <div class="absolute inset-0 border border-[#393939] pointer-events-none group-hover:border-primary-container transition-colors shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"></div>
+                                    <span class="material-symbols-outlined absolute bottom-2 right-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">open_in_full</span>
+                                </div>
+                                <!-- Gallery Item 3 -->
+                                <div class="bg-[#0E0E0E] aspect-square relative cursor-pointer card-static group md:col-span-2" onclick="alert('Artifact 03: Target Stare Selfie locked.')">
+                                    <img class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity mix-blend-luminosity group-hover:mix-blend-normal" src="./photos/aleeya2.jpg" alt="Target Selfie 2"/>
+                                    <div class="absolute inset-0 border border-[#393939] pointer-events-none group-hover:border-primary-container transition-colors shadow-[inset_0_0_40px_rgba(0,0,0,0.9)]"></div>
+                                    <span class="material-symbols-outlined absolute bottom-4 right-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity text-2xl">visibility</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- SECTION F: MINI GAME -->
+            <div id="main-game" class="main-section hidden">
+                <main class="relative z-10 pt-32 pb-32 px-4 md:px-margin-edge min-h-screen flex flex-col items-center justify-center">
+                    <div class="w-full max-w-lg bg-surface-container-lowest border border-outline-variant p-6 relative flex flex-col items-center gap-8 shadow-[inset_0_0_20px_rgba(139,0,0,0.1)] transition-all duration-300" id="game-container">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-surface-variant">
+                            <div class="h-full bg-primary-container w-[10%] transition-all duration-300" id="progress-bar"></div>
+                        </div>
+                        <div class="w-full flex justify-between items-center border-b border-[#353535] pb-4">
+                            <div class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary animate-pulse">lock</span>
+                                SECURITY_DECIPHER
+                            </div>
+                            <div class="font-label-mono text-label-mono text-primary font-bold" id="progress-text">1 / 5</div>
+                        </div>
+
+                        <!-- Progress Indicators -->
+                        <div class="flex gap-2 w-full justify-center">
+                            <div class="h-1.5 w-8 bg-primary rounded-none" id="dot-0"></div>
+                            <div class="h-1.5 w-8 bg-surface rounded-none" id="dot-1"></div>
+                            <div class="h-1.5 w-8 bg-surface rounded-none" id="dot-2"></div>
+                            <div class="h-1.5 w-8 bg-surface rounded-none" id="dot-3"></div>
+                            <div class="h-1.5 w-8 bg-surface rounded-none" id="dot-4"></div>
+                        </div>
+
+                        <!-- Sprite Viewport -->
+                        <div class="w-48 h-64 border border-[#353535] relative overflow-hidden bg-black flex items-center justify-center group">
+                            <img alt="Sprite viewport" class="w-full h-full object-cover grayscale brightness-90 contrast-125 filter transition-all duration-500" id="game-sprite" src="./photos/aleeya1.jpg" />
+                            <div class="absolute inset-0 bg-red-950/20 mix-blend-color"></div>
+                        </div>
+
+                        <!-- Game Area -->
+                        <div class="w-full flex flex-col gap-6 items-center" id="quiz-area">
+                            <!-- Questions rendered dynamically -->
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+        </div>
+
+        <!-- Global Dark BottomNavBar (Mobile Only) -->
+        <nav class="md:hidden bg-surface-container-lowest fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe border-t border-surface-container-low shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+            <a id="mob-btn-dunia-gelap" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary transition-all font-label-mono text-label-mono cursor-pointer" onclick="showScreen('dunia-gelap')">
+                <span class="material-symbols-outlined text-2xl mb-1">visibility</span>
+                <span class="text-[10px]">Observe</span>
+            </a>
+            <a id="mob-btn-profil" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary transition-all font-label-mono text-label-mono cursor-pointer" onclick="showScreen('profil')">
+                <span class="material-symbols-outlined text-2xl mb-1">lock</span>
+                <span class="text-[10px]">Redacted</span>
+            </a>
+            <a id="mob-btn-sekolah" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary transition-all font-label-mono text-label-mono cursor-pointer" onclick="showScreen('sekolah')">
+                <span class="material-symbols-outlined text-2xl mb-1">inventory_2</span>
+                <span class="text-[10px]">Vault</span>
+            </a>
+            <a id="mob-btn-galeri" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary transition-all font-label-mono text-label-mono cursor-pointer" onclick="showScreen('galeri')">
+                <span class="material-symbols-outlined text-2xl mb-1">record_voice_over</span>
+                <span class="text-[10px]">Whispers</span>
+            </a>
+        </nav>
+
+        <!-- Global Dark Footer -->
+        <footer class="w-full py-12 px-margin-edge flex flex-col items-center gap-4 bg-surface-dim bg-surface-container-high mb-16 md:mb-0 border-t border-surface-variant/30 mt-24">
+            <div class="font-headline-sm text-headline-sm text-primary mb-2 animate-flicker">ALEEYA</div>
+            <div class="flex gap-6">
+                <a class="text-outline font-label-mono text-label-mono hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Terms of Silence</a>
+                <a class="text-outline font-label-mono text-label-mono hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Privacy Breach</a>
+                <a class="text-outline font-label-mono text-label-mono hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Data Void</a>
+            </div>
+            <div class="font-label-mono text-label-mono text-on-surface-variant/50 mt-4 text-xs">
+                © 2024 ERROR_DATA_CORRUPT
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- INTERACTIVE LOGIC & CONTROLLER SCRIPTS     -->
+    <!-- ========================================== -->
+    <script>
+        // State management
+        let currentScreen = 'home';
+
+        // 1. Navigation / Router function
+        function showScreen(screenId) {
+            if (currentScreen === screenId) return;
+
+            // Trigger strobe glitch transition
+            document.body.classList.add('transitioning');
+            
+            setTimeout(() => {
+                // Hide home page or dark shell depending on screenId
+                const homeEl = document.getElementById('screen-home');
+                const darkShellEl = document.getElementById('dark-shell');
+                const shaderContainer = document.getElementById('global-shader-container');
+
+                if (screenId === 'home') {
+                    homeEl.classList.add('active-screen');
+                    darkShellEl.classList.add('hidden');
+                    // Subtle background shader on homepage
+                    shaderContainer.style.opacity = '0.15';
+                } else {
+                    homeEl.classList.remove('active-screen');
+                    darkShellEl.classList.remove('hidden');
+                    // Stronger shader on dark screens
+                    shaderContainer.style.opacity = '0.4';
+
+                    // Hide all dark main sections
+                    const sections = document.querySelectorAll('.main-section');
+                    sections.forEach(s => s.classList.add('hidden'));
+
+                    // Show selected section
+                    const activeSection = document.getElementById(`main-${screenId}`);
+                    if (activeSection) {
+                        activeSection.classList.remove('hidden');
+                    }
+
+                    // Update navigation button active styles
+                    updateNavHighlights(screenId);
+
+                    // Initialize terminal typing if terminal screen is entered
+                    if (screenId === 'terminal') {
+                        initTerminal();
+                    }
+                    // Initialize game if game screen entered
+                    if (screenId === 'game') {
+                        currentQuestionIndex = 0;
+                        loadQuestion();
+                    }
+                }
+
+                currentScreen = screenId;
+                window.scrollTo(0, 0);
+            }, 150);
+
+            setTimeout(() => {
+                document.body.classList.remove('transitioning');
+            }, 350);
+        }
+
+        // Highlight active buttons
+        function updateNavHighlights(screenId) {
+            // Remove previous active classes
+            const navButtons = document.querySelectorAll('[id^="nav-btn-"]');
+            const mobButtons = document.querySelectorAll('[id^="mob-btn-"]');
+            
+            navButtons.forEach(btn => btn.classList.remove('active-nav-btn'));
+            mobButtons.forEach(btn => btn.classList.remove('active-mob-btn'));
+
+            // Set new active classes
+            const activeNav = document.getElementById(`nav-btn-${screenId}`);
+            const activeMob = document.getElementById(`mob-btn-${screenId}`);
+            
+            if (activeNav) activeNav.classList.add('active-nav-btn');
+            if (activeMob) activeMob.classList.add('active-mob-btn');
+        }
+
+        // Home side navigation drawer controls
+        const sideNav = document.getElementById('side-nav');
+        function toggleNav() {
+            if (sideNav) sideNav.classList.toggle('-translate-x-full');
+        }
+
+        function scrollToId(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // 2. Creepy Eyes Tracking Script
+        document.addEventListener('mousemove', (e) => {
+            if (currentScreen !== 'profil') return;
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach(eye => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                const distance = Math.min(6, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 10);
+                const pupilX = Math.cos(angle) * distance;
+                const pupilY = Math.sin(angle) * distance;
+                const pupil = eye.querySelector('.pupil');
+                if (pupil) pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+            });
+        });
+
+
+        // 3. School Jumpscare random triggers
+        setInterval(() => {
+            if (currentScreen === 'sekolah' && Math.random() > 0.6) {
+                const jumpscareEl = document.getElementById('jumpscare');
+                jumpscareEl.style.opacity = '0.85';
+                setTimeout(() => {
+                    jumpscareEl.style.opacity = '0.2';
+                    setTimeout(() => {
+                        jumpscareEl.style.opacity = '0.9';
+                        setTimeout(() => {
+                            jumpscareEl.style.opacity = '0';
+                        }, 120);
+                    }, 60);
+                }, 100);
+            }
+        }, 8000);
+
+
+        // 4. Stalker Terminal dossier typewriter
+        const terminalDossier = `> BYPASSING CLOUDFLARE SHIELD... SUCCESS.
+> ACCESSING PORT: AMIRSYS-DEV/3DPORTO... COMPLETED.
+> DECRYPTING DOSSIER... SUCCESS.
+
+[SASARAN INDIVIDU]
+- Nama: Muhammad Amiruddin Arsyad bin Sahlan (okyimfine / Mr. Arsyad)
+- Umur: 15 tahun (Budak ni code dari umur 9 tahun mat... dah 8 tahun self-taught. Padu gila.)
+- Lokasi: Segamat, Johor, Malaysia (Coordinates locked. Aku tahu kau kat mana.)
+- Sekolah: SMK Paduka Tuan (Science Stream, Kelas 4 SK5. Plan masuk KV 2027.)
+- Hubungan Digital: GitHub @AmirSys-dev, Telegram @mraseas, Twitter @arsyad_dev.
+
+[RIG DALAM BILIK DIA (X79 Xeon Server)]
+- CPU: Intel Xeon @ 2.40GHz (12 Cores / 24 Threads). Banyak gila threads mat.
+- RAM: 32 GB DDR3 ECC (Server uptime dah 247 hari... gila dia tak pernah shutdown ke?)
+- OS: Debian Linux (Debian x86_64).
+- Pipeline Network: WireGuard VPN, Cloudflared Tunnel, AdGuard Home DNS, Nginx Reverse Proxy.
+- Dashboard Panel: Pterodactyl (untuk game server) & Kubernetes container orchestration.
+
+[PROJECTS DATABASE SCRAPED]
+1. Web-Security-Toolkit (2024)
+   - Modular web auditing tools (Python, Node.js). Scan CORS, header misconfiguration, endpoints.
+2. Cexi-Drive (2024)
+   - Google Drive clone (Next.js, TypeScript, React, MySQL). Backend storage kat VPS server dia sendiri.
+3. CPanel-Management-Engine (2023)
+   - Automate backup, subdomains, SSL certificate creation pakai API.
+4. BotProtect-Telegram-Bot (2024)
+   - Telegram group security bot (Node.js, MongoDB). Detect file upload, ban malware, auto-mute.
+5. MC-Hosting (2023)
+   - Minecraft hosting dashboard atas VPS Linux. Monitor live RAM/CPU & auto-backup world.
+
+[SIJIL & TRACK RECORD]
+- freeCodeCamp: Responsive Web Design, JS Algorithms, Front-End Libraries.
+- MinnaLearn & Uni of Helsinki: Elements of AI (2 ECTS) [Sijil tamat: 29 Jun 2026].
+- Google Cloud Arcade: Voyage - Identity Management & Pre-trained AI APIs (2026).
+- Line of code bertulis: 33,000+ LoC.
+- TeleOps Suite active users: 1,200+ monthly.
+
+> AMARAN: Target tengah aktif compile code.
+> Dia macam perasan connection ni...
+> Sistem security BotProtect dia dah start track IP kita.
+> WEH JAP, APAHAL WEBCAM AKU TIBATIBA MENYALA??
+> ADA ORANG TANDAKAN LOKASI AKU.
+> DISCONNECTING NOW... SUCCESS.
+
+[STATUS SASARAN]: <span class="text-primary font-bold animate-pulse">BEING OBSERVED. ALWAYS.</span>`;
+
+        let termIdx = 0;
+        let isTag = false;
+        let termText = "";
+        let terminalInitialized = false;
+
+        function initTerminal() {
+            if (terminalInitialized) return;
+            terminalInitialized = true;
+            const terminalOutput = document.getElementById('terminal-output');
+            if (terminalOutput) {
+                terminalOutput.innerHTML = "";
+                termIdx = 0;
+                termText = "";
+                setTimeout(typeWriter, 800);
+            }
+        }
+
+        function typeWriter() {
+            const terminalOutput = document.getElementById('terminal-output');
+            if (!terminalOutput || termIdx >= terminalDossier.length) return;
+
+            const char = terminalDossier.charAt(termIdx);
+            if (char === '<') isTag = true;
+            if (char === '>') isTag = false;
+            
+            termText += char;
+            
+            if (termText.endsWith("WEBCAM AKU TIBATIBA MENYALA??")) {
+                triggerWebcamGlitch();
+            }
+
+            if(!isTag && Math.random() > 0.82 && char.match(/[a-z]/i)) {
+                terminalOutput.innerHTML = termText.slice(0,-1) + '<span class="opacity-50 blur-[1px]">' + String.fromCharCode(Math.floor(Math.random() * 26) + 97) + '</span><span class="terminal-cursor"></span>';
+                setTimeout(() => {
+                    terminalOutput.innerHTML = termText + '<span class="terminal-cursor"></span>';
+                    termIdx++;
+                    setTimeout(typeWriter, Math.random() * 40 + 15);
+                }, 40);
+            } else {
+                terminalOutput.innerHTML = termText + '<span class="terminal-cursor"></span>';
+                termIdx++;
+                let delay = isTag ? 0 : Math.random() * 40 + 10;
+                if(char === '\n') delay = 250;
+                setTimeout(typeWriter, delay);
+            }
+        }
+
+        function triggerWebcamGlitch() {
+            const glitchOverlay = document.getElementById('webcam-glitch');
+            if (glitchOverlay) {
+                glitchOverlay.style.opacity = '1';
+                document.body.style.filter = "invert(100%)";
+                setTimeout(() => {
+                    glitchOverlay.style.opacity = '0';
+                    document.body.style.filter = "none";
+                }, 350);
+            }
+        }
+
+
+        // 5. Gallery click jumpscare
+        function triggerJeffJumpscare() {
+            const jumpscare = document.getElementById('jeff-jumpscare');
+            if (!jumpscare) return;
+            
+            document.body.classList.add('violent-shake');
+            document.body.style.filter = "invert(100%)";
+            jumpscare.style.opacity = '1';
+            jumpscare.style.pointerEvents = 'auto';
+            
+            let count = 0;
+            const interval = setInterval(() => {
+                jumpscare.style.opacity = (count % 2 === 0) ? '0.7' : '1.0';
+                document.body.style.filter = (count % 2 === 0) ? "invert(100%)" : "none";
+                count++;
+            }, 80);
+            
+            setTimeout(() => {
+                clearInterval(interval);
+                jumpscare.style.opacity = '0';
+                jumpscare.style.pointerEvents = 'none';
+                document.body.classList.remove('violent-shake');
+                document.body.style.filter = "none";
+            }, 1500);
+        }
+
+
+        // 6. Progressive Math Game System
+        const questions = [
+            {
+                q: "JIKA 100 - 32 = ?",
+                a: ["58", "68", "78"],
+                correct: 1
+            },
+            {
+                q: "JIKA KAU MELIHAT 3 MATA DI JENDELA, DAN 4 MATA DI PINTU, BERAPA BANYAK YANG MEMERHATIKAN KAU?",
+                a: ["0 MATA", "7 MATA", "TIADA SESIAPA"],
+                correct: 1
+            },
+            {
+                q: "JIKA AKU BERJALAN 152 METER KE RUMAH KAU, DAN BERATKU 41 KG, BERAPA BANYAK TENAGA UNTUK BUKA PINTU BILIK KAU?",
+                a: ["41 JOULE", "152 JOULE", "TIADA LIMIT"],
+                correct: 2
+            },
+            {
+                q: "JIKA 20 MAC 2010 ADALAH TARIKH LAHIRKU, BERAPA KALI AKU SUDAH BERMIMPI TENTANG KAU?",
+                a: ["16 KALI", "SETIAP MALAM", "KOSONG"],
+                correct: 1
+            },
+            {
+                q: "JIKA KAU LARI, DAN JALAN PUTRA ADA DI BELAKANG KAU, BERAPA LAMA KAU BOLEH HIDUP?",
+                a: ["0 SAAT", "1 SAAT", "1 JAM"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const q = questions[currentQuestionIndex];
+            const quizArea = document.getElementById('quiz-area');
+            const progressText = document.getElementById('progress-text');
+            const progressBar = document.getElementById('progress-bar');
+            
+            if (!quizArea) return;
+
+            progressText.innerText = `${currentQuestionIndex + 1} / 5`;
+            progressBar.style.width = `${(currentQuestionIndex + 1) * 20}%`;
+
+            // Reset dots highlight
+            for (let d = 0; d < 5; d++) {
+                const dot = document.getElementById(`dot-${d}`);
+                if (dot) {
+                    if (d <= currentQuestionIndex) {
+                        dot.className = "h-1.5 w-8 bg-primary rounded-none";
+                    } else {
+                        dot.className = "h-1.5 w-8 bg-surface rounded-none";
+                    }
+                }
+            }
+            
+            quizArea.innerHTML = `
+                <div class="font-label-mono text-label-mono text-inverse-surface bg-surface-container-high px-6 py-4 w-full text-center tracking-widest border-l-2 border-primary-container shadow-[inset_0_0_10px_rgba(0,0,0,0.8)] uppercase">
+                    ${q.q}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                    ${q.a.map((ans, idx) => `
+                        <button class="game-btn font-label-mono text-label-mono text-on-surface bg-surface border border-[#393939] py-3 hover:border-primary-container hover:bg-primary-container/10 hover:text-primary transition-colors uppercase relative overflow-hidden group cursor-pointer" onclick="handleAnswer(this, ${idx === q.correct})">
+                            <span class="relative z-10">${ans}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Adjust scanline opacity
+            const scanlines = document.getElementById('game-scanlines');
+            if (scanlines) {
+                scanlines.style.opacity = (currentQuestionIndex * 0.16 + 0.15).toString();
+            }
+        }
+
+        function handleAnswer(btn, isCorrect) {
+            const container = document.getElementById('game-container');
+            const buttons = document.querySelectorAll('.game-btn');
+            
+            buttons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                createBloodSplatter(btn);
+                btn.classList.add('bg-primary-container', 'text-on-primary-container');
+                setTimeout(() => {
+                    btn.classList.remove('bg-primary-container', 'text-on-primary-container');
+                    
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        loadQuestion();
+                    } else {
+                        showWinState();
+                    }
+                }, 1000);
+            } else {
+                container.classList.add('violent-shake');
+                document.body.style.filter = "invert(20%) sepia(1) saturate(5)";
+                
+                setTimeout(() => {
+                    container.classList.remove('violent-shake');
+                    document.body.style.filter = "none";
+                    buttons.forEach(b => b.disabled = false);
+                }, 400);
+            }
+        }
+
+        function createBloodSplatter(element) {
+            const rect = element.getBoundingClientRect();
+            const container = document.getElementById('game-container');
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('blood-particle');
+                
+                const size = Math.random() * 8 + 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position relative to game-container
+                const crect = container.getBoundingClientRect();
+                const x = (rect.left - crect.left) + rect.width / 2;
+                const y = (rect.top - crect.top) + rect.height / 2;
+                
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 80 + 30;
+                const tx = Math.cos(angle) * speed;
+                const ty = Math.sin(angle) * speed;
+                
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                container.appendChild(particle);
+                setTimeout(() => particle.remove(), 600);
+            }
+        }
+
+        function showWinState() {
+            const gameContainer = document.getElementById('game-container');
+            document.body.style.filter = "invert(100%)";
+            setTimeout(() => {
+                document.body.style.filter = "none";
+                document.body.style.backgroundColor = "#000";
+                
+                const sprite = document.getElementById('game-sprite');
+                if (sprite) {
+                    sprite.style.filter = "grayscale(100%) brightness(1.3) contrast(300%)";
+                    sprite.src = "./photos/aleeya2.jpg";
+                }
+                
+                gameContainer.innerHTML = `
+                    <h1 class="font-headline-sm md:font-headline-md text-error tracking-widest text-center uppercase border-b border-[#353535] w-full pb-4 animate-pulse">
+                        KAU DAH MENANG.
+                    </h1>
+                    <div class="w-48 h-64 relative flex justify-center items-end bg-black border border-error overflow-hidden">
+                        <img alt="Creepy stare" class="w-full h-full object-cover grayscale brightness-125 contrast-200" src="./photos/aleeya2.jpg" />
+                    </div>
+                    <div class="w-full font-label-mono text-label-mono text-error text-center px-4 py-6 border border-error bg-red-950/20 leading-relaxed uppercase text-xs md:text-sm">
+                        TAPI KAU TAKKAN LEPAS DARIPADA AKU.<br/>
+                        JUMPA DI 1/32 JALAN PUTRA, SEGAMAT.<br/>
+                        AKU TUNGGU KAU DATANG...
+                    </div>
+                    <button onclick="showScreen('dunia-gelap')" class="game-btn font-label-mono text-label-mono text-[#F5F5F5] bg-error-container border border-error py-3 px-6 hover:bg-error transition-colors uppercase relative overflow-hidden mt-4 w-full cursor-pointer">
+                        KEMBALI KE OBSERVATION
+                    </button>
+                `;
+            }, 300);
+        }
+
+
+        // 7. Background WebGL Shader Render Script
+        (function() {
+            const canvas = document.getElementById('bg-shader-canvas');
+            if (!canvas) return;
+
+            function syncSize() {
+                const w = window.innerWidth || 1280;
+                const h = window.innerHeight || 720;
+                if (canvas.width !== w || canvas.height !== h) {
+                    canvas.width  = w;
+                    canvas.height = h;
+                }
+            }
+            window.addEventListener('resize', syncSize);
+            syncSize();
+
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) return;
+
+            const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+    v_texCoord = a_position * 0.5 + 0.5;
+    gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+            const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Glitch horizontal shifts
+    float jitter = step(0.985, rand(vec2(u_time * 0.15, floor(uv.y * 60.0)))) * 0.004 * sin(u_time * 25.0);
+    uv.x += jitter;
+    
+    // CRT Scanlines
+    float scanline = sin(uv.y * u_resolution.y * 1.3) * 0.05;
+    
+    // Vignette
+    float dist = distance(uv, vec2(0.5));
+    float pulse = 0.5 + 0.5 * sin(u_time * 0.7);
+    float vignette = smoothstep(0.95 - (pulse * 0.04), 0.45, dist);
+    
+    // Background noise and atmosphere
+    float noise = rand(uv + u_time * 0.02) * 0.035;
+    vec3 redTint = vec3(0.08, 0.0, 0.0) * pulse;
+    
+    vec3 color = vec3(0.0) + redTint + noise;
+    color -= scanline;
+    color *= vignette;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+
+            function compileShader(type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                return shader;
+            }
+
+            const program = gl.createProgram();
+            gl.attachShader(program, compileShader(gl.VERTEX_SHADER, vs));
+            gl.attachShader(program, compileShader(gl.FRAGMENT_SHADER, fs));
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+            const position = gl.getAttribLocation(program, 'a_position');
+            gl.enableVertexAttribArray(position);
+            gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+            const uTime = gl.getUniformLocation(program, 'u_time');
+            const uRes = gl.getUniformLocation(program, 'u_resolution');
+
+            function draw(time) {
+                syncSize();
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                gl.uniform1f(uTime, time * 0.001);
+                gl.uniform2f(uRes, canvas.width, canvas.height);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(draw);
+            }
+            requestAnimationFrame(draw);
+        })();
+
+        // Redacted text hover translations jitter
+        const redactedElements = document.querySelectorAll('.redacted-hover');
+        setInterval(() => {
+            redactedElements.forEach(el => {
+                if(Math.random() > 0.96) {
+                    el.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                    setTimeout(() => el.style.transform = 'translate(0,0)', 50);
+                }
+            });
+        }, 120);
+    </script>
 </body>
 </html>
