@@ -248,6 +248,19 @@
             40%, 60% { transform: translate3d(12px, -6px, 0); }
         }
 
+        .tremble-page {
+            animation: page-shake 0.3s infinite;
+        }
+        @keyframes page-shake {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-3px, 2px) skewX(2deg); }
+            30% { transform: translate(2px, -3px) skewY(-1deg); }
+            50% { transform: translate(-1px, 3px) skewX(-2deg); }
+            70% { transform: translate(3px, -1px); }
+            90% { transform: translate(-2px, -2px) skewY(1deg); }
+            100% { transform: translate(0, 0); }
+        }
+
         /* Screen Transitions Glitch Strobe */
         #glitch-transition {
             position: fixed;
@@ -594,11 +607,24 @@
                     <div class="w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
                         <!-- Profile Image -->
                         <div class="col-span-1 md:col-span-5 flex flex-col items-center md:items-start gap-8">
-                            <div class="relative group border border-[#393939] p-2 bg-surface-container-lowest w-full max-w-sm glitch-hover">
+                            <div class="relative group border border-[#393939] p-2 bg-surface-container-lowest w-full max-w-sm glitch-hover overflow-hidden">
                                 <img alt="Profile Portrait" class="w-full aspect-square object-cover filter grayscale contrast-125 sepia-[.3] hue-rotate-[-30deg]" src="./photos/aleeya2.jpg"/>
                                 <div class="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+                                </div>
+                                <!-- Cracked Glass Overlay centered on mouth area -->
+                                <div class="absolute inset-0 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity">
+                                    <svg class="w-full h-full stroke-primary/70 stroke-[1.5] fill-none" viewBox="0 0 100 100">
+                                        <circle cx="50" cy="70" r="1.5" class="fill-primary animate-pulse" />
+                                        <path d="M 50 70 L 20 92 M 50 70 L 10 65 M 50 70 L 30 35 M 50 70 L 52 25 M 50 70 L 78 40 M 50 70 L 92 70 M 50 70 L 80 90 M 50 70 L 55 98" />
+                                        <path d="M 40 68 Q 45 61 55 63 Q 58 70 52 77 Q 43 74 40 68 Z" />
+                                        <path d="M 30 65 Q 40 51 60 55 Q 68 70 55 84 Q 35 80 30 65 Z" />
+                                        <path d="M 18 61 Q 35 35 72 43 Q 82 70 62 92 Q 25 87 18 61 Z" />
+                                        <polygon points="48,67 52,67 50,64" class="fill-primary-container/30 stroke-none" />
+                                        <polygon points="45,71 48,74 43,73" class="fill-primary-container/30 stroke-none" />
+                                        <polygon points="53,69 56,72 55,67" class="fill-primary-container/30 stroke-none" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -1024,9 +1050,9 @@
 
 [SASARAN INDIVIDU]
 - Nama: Muhammad Amiruddin Arsyad bin Sahlan (okyimfine / Mr. Arsyad)
-- Umur: 15 tahun (Budak ni code dari umur 9 tahun mat... dah 8 tahun self-taught. Padu gila.)
+- Umur: 15 tahun (Budak ni code dari umur 9 tahun mat... dah 6 tahun self-taught. Padu gila.)
 - Lokasi: Segamat, Johor, Malaysia (Coordinates locked. Aku tahu kau kat mana.)
-- Sekolah: SMK Paduka Tuan (Science Stream, Kelas 4 SK5. Plan masuk KV 2027.)
+- Sekolah: SMK Paduka Tuan (Kelas 3C. Plan masuk KV Gagal.)
 - Hubungan Digital: GitHub @AmirSys-dev, Telegram @mraseas, Twitter @arsyad_dev.
 
 [RIG DALAM BILIK DIA (X79 Xeon Server)]
@@ -1427,6 +1453,49 @@ void main() {
                 }
             });
         }, 120);
+
+        // 8. Sudden Page Vibration & Color Shift Glitches
+        setInterval(() => {
+            if (currentScreen !== 'home' && Math.random() > 0.6) {
+                document.body.classList.add('tremble-page');
+                const prevFilter = document.body.style.filter;
+                document.body.style.filter = "hue-rotate(60deg) contrast(140%) invert(10%)";
+                
+                setTimeout(() => {
+                    document.body.classList.remove('tremble-page');
+                    document.body.style.filter = prevFilter || "none";
+                }, Math.random() * 300 + 150);
+            }
+        }, 8000);
+
+        // 9. Sudden Jeff the Killer Jumpscares
+        setInterval(() => {
+            // 15% chance every 20 seconds, only when inside the dark screens
+            if (currentScreen !== 'home' && Math.random() < 0.15) {
+                const jumpscare = document.getElementById('jeff-jumpscare');
+                if (jumpscare) {
+                    document.body.classList.add('violent-shake');
+                    document.body.style.filter = "invert(100%) sepia(1) saturate(10)";
+                    jumpscare.style.opacity = '1';
+                    jumpscare.style.pointerEvents = 'auto';
+
+                    let count = 0;
+                    const strobeInterval = setInterval(() => {
+                        jumpscare.style.opacity = (count % 2 === 0) ? '0.7' : '1.0';
+                        document.body.style.filter = (count % 2 === 0) ? "invert(100%)" : "none";
+                        count++;
+                    }, 80);
+
+                    setTimeout(() => {
+                        clearInterval(strobeInterval);
+                        jumpscare.style.opacity = '0';
+                        jumpscare.style.pointerEvents = 'none';
+                        document.body.classList.remove('violent-shake');
+                        document.body.style.filter = "none";
+                    }, 1200);
+                }
+            }
+        }, 20000);
     </script>
 </body>
 </html>
