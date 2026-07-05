@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dunia Gelap Nur Aleeya</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "surface": "#131313",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary": "#690000",
+                        "on-secondary": "#303030",
+                        "on-tertiary-container": "#ff9080",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#ffb4a8",
+                        "outline": "#aa8984",
+                        "on-error-container": "#ffdad6",
+                        "background": "#131313",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-tertiary-fixed-variant": "#891d12",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-variant": "#353534",
+                        "tertiary-fixed": "#ffdad4",
+                        "on-error": "#690005",
+                        "on-background": "#e5e2e1",
+                        "primary": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#474747",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "secondary-container": "#474747",
+                        "on-surface-variant": "#e3beb8",
+                        "surface-container-highest": "#353534",
+                        "surface-bright": "#3a3939",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-container": "#201f1f",
+                        "outline-variant": "#5a403c",
+                        "on-primary-container": "#ff907f",
+                        "surface-tint": "#ffb4a8",
+                        "on-tertiary": "#680201",
+                        "primary-container": "#8b0000",
+                        "primary-fixed": "#ffdad4",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-secondary-container": "#b6b5b4",
+                        "secondary": "#c8c6c6",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-primary-fixed": "#410000",
+                        "on-primary-fixed-variant": "#920703",
+                        "inverse-primary": "#b52619",
+                        "tertiary-container": "#83180e",
+                        "on-surface": "#e5e2e1",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-edge": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-sm": ["Syne"],
+                        "headline-md": ["Syne"],
+                        "display-lg-mobile": ["Syne"],
+                        "display-lg": ["Syne"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+
+        /* Vignette and CRT overlay */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle, transparent 20%, #000000 90%);
+            z-index: 10;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 11;
+            opacity: 0.3;
+        }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        .glitch-hover:hover {
+            animation: glitch 0.2s infinite;
+        }
+
+        /* Flicker Animation */
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+            20%, 22%, 24%, 55% { opacity: 0.8; }
+        }
+        .flicker {
+            animation: flicker 4s infinite;
+        }
+
+        /* Tremble Animation */
+        @keyframes tremble {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-1px) rotate(-1deg); }
+            50% { transform: translateX(1px) rotate(1deg); }
+            75% { transform: translateX(-1px) rotate(0deg); }
+            100% { transform: translateX(0); }
+        }
+        .tremble:hover {
+            animation: tremble 0.1s infinite;
+        }
+
+        /* Pulse Animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .pulse-heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Typewriter effect simplified for static HTML */
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #8B0000;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #8B0000; }
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBY3wumi_QbwVxYXvnWce_26rEFVgVhVAgAeR66NzTy6oQO32Wy3GVbcW4atPT1w9fBF6J7folGglVdHU9rvGHtnfzkIgZo0pIC0aaNhkx6RqpkoAGyRM7AfVau82vmlrBzZ3JVd5A6r-g2aYCFxiGAX41Kv2AT8dmJYTUQNfn29oJNMX46tWJCGdJJuXq6GPV3S6m1Jb9CHMp0aX-f4EKXa-Fy70hR8rv9U5KglpTZgPlluMzQ44oBbaW9tSLz7UrlCZv92gJF3tk');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            filter: contrast(1.2) grayscale(0.5);
+            z-index: -1;
+        }
+
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col relative selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient Overlay -->
+<div class="vignette"></div>
+<div class="scanlines"></div>
+<!-- STITCH_SHADER_START:ANIMATION_8 class="fixed inset-0 w-full h-full pointer-events-none opacity-50 z-0" -->
+<div class="fixed inset-0 w-full h-full pointer-events-none opacity-50 z-0" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_8" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_8');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Glitch effect logic - subtle horizontal shifts
+    float jitter = step(0.98, rand(vec2(u_time * 0.2, floor(uv.y * 50.0)))) * 0.005 * sin(u_time * 20.0);
+    uv.x += jitter;
+    
+    // Scanlines
+    float scanline = sin(uv.y * u_resolution.y * 1.2) * 0.06;
+    
+    // Pulsating Blood Vignette
+    float dist = distance(uv, vec2(0.5));
+    float pulse = 0.5 + 0.5 * sin(u_time * 0.8);
+    float vignette = smoothstep(0.9 - (pulse * 0.05), 0.4, dist);
+    
+    // Base color (Black)
+    vec3 color = vec3(0.0);
+    
+    // Red atmosphere/noise
+    float noise = rand(uv + u_time * 0.01) * 0.04;
+    vec3 redTint = vec3(0.1, 0.0, 0.0) * pulse;
+    color += redTint + noise;
+    
+    // Combine scanlines and vignette
+    color -= scanline;
+    color *= vignette;
+    
+    // Chromatic Aberration - subtle red/blue split on the edges
+    float r = texture2D(u_resolution.xy > 0.0 ? vec2(0.0) : uv, uv + vec2(0.002, 0.0)).r; // Placeholder logic for color shift
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_8 -->
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full bg-surface/80 backdrop-blur-sm flex justify-between items-center px-margin-edge py-unit z-50 border-b-0 shadow-none">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary animate-pulse tracking-tighter">ALEEYA</div>
+<div class="hidden md:flex gap-8">
+<a href="./05_dunia_gelap_utama.html" class="text-primary font-bold hover:text-primary hover:skew-x-2 transition-transform cursor-pointer font-label-mono text-label-mono">Observe</a>
+<a href="./10_profil_tentang_saya.html" class="text-on-surface-variant hover:text-primary hover:skew-x-2 transition-transform cursor-pointer font-label-mono text-label-mono">Redacted</a>
+<a href="./08_sekolah_saya.html" class="text-on-surface-variant hover:text-primary hover:skew-x-2 transition-transform cursor-pointer font-label-mono text-label-mono">Vault</a>
+<a href="./11_hubungi_galeri.html" class="text-on-surface-variant hover:text-primary hover:skew-x-2 transition-transform cursor-pointer font-label-mono text-label-mono">Whispers</a>
+</div>
+<button class="md:hidden text-primary hover:text-error transition-colors focus:outline-none glitch-hover">
+<span class="material-symbols-outlined" style="font-size: 32px;">menu</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center relative z-10 px-gutter md:px-margin-edge mt-24 pb-32">
+<div class="hero-bg" data-alt="A dark, messy bedroom lit by a single dim yellow desk lamp. A large, unsettling poster of a creepy face with wide eyes and a grotesque smile is taped to the peeling wall. The bed is unmade, scattered with instant noodle cups, clothes, and school books. The atmosphere is extremely claustrophobic, dirty, and horrifying, with deep shadows and high contrast lighting."></div>
+<div class="relative w-full max-w-[800px] flex flex-col items-center justify-center min-h-[60vh]">
+<!-- Central Sprite -->
+<div class="relative w-64 h-80 md:w-80 md:h-96 mb-8 mt-12 flicker">
+<img alt="Nur Aleeya Batrisya" class="w-full h-full object-cover rounded-none border border-surface-variant/30 shadow-[inset_0_0_20px_rgba(139,0,0,0.2)]" data-alt="A portrait of 16-year-old Malaysian schoolgirl Nur Aleeya Batrisya wearing a black hijab." src="./photos/aleeya1.jpg"/>
+<!-- Glitch overlay on image hover -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none mix-blend-overlay"></div>
+</div>
+<!-- Typography -->
+<div class="text-center w-full relative z-20">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary-fixed uppercase tracking-tighter mb-4 glitch-hover text-shadow-sm">
+                    DUNIA GELAP NUR ALEEYA (Naleya)
+                </h1>
+<div class="font-label-mono text-label-mono text-error inline-block mb-12">
+<p class="typewriter bg-surface-container-low/80 px-2 py-1 inline-block">Go To Sleep... (Pergi Tidur...)</p>
+</div>
+</div>
+<!-- CTA Button -->
+<button onclick="window.location.href='./10_profil_tentang_saya.html'" class="relative bg-primary-container text-[#F5F5F5] font-headline-sm text-headline-sm px-12 py-4 border-2 border-primary-container hover:bg-primary-container/90 hover:border-error transition-all duration-300 tremble pulse-heartbeat z-20 overflow-hidden group">
+<span class="relative z-10 tracking-widest uppercase">START</span>
+<div class="absolute inset-0 bg-error/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 ease-in-out"></div>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe bg-surface-container-lowest border-t-0 shadow-none">
+<a href="./05_dunia_gelap_utama.html" class="flex flex-col items-center justify-center text-primary scale-110 transition-all cursor-pointer pulse-heartbeat">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<span class="font-label-mono text-[10px] mt-1">Observe</span>
+</a>
+<a href="./10_profil_tentang_saya.html" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all cursor-pointer">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-label-mono text-[10px] mt-1">Redacted</span>
+</a>
+<a href="./08_sekolah_saya.html" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-mono text-[10px] mt-1">Vault</span>
+</a>
+<a href="./11_hubungi_galeri.html" class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all cursor-pointer">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-mono text-[10px] mt-1">Whispers</span>
+</a>
+</nav>
+</body></html>

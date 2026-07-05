@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="dark scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ALEEYA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Syne:wght@400..800&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#c7c6c6",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "on-primary-fixed-variant": "#920703",
+                      "surface-bright": "#393939",
+                      "on-secondary-fixed-variant": "#454747",
+                      "surface-tint": "#ffb4a8",
+                      "tertiary-container": "#414242",
+                      "surface-container-highest": "#353535",
+                      "surface-variant": "#353535",
+                      "surface-dim": "#131313",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-background": "#e2e2e2",
+                      "secondary-container": "#454747",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "primary-container": "#8b0000",
+                      "background": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e2e2e2",
+                      "surface-container": "#1f1f1f",
+                      "inverse-primary": "#b52619",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-error": "#690005",
+                      "primary": "#ffb4a8",
+                      "on-secondary": "#2f3131",
+                      "on-tertiary-fixed-variant": "#464747",
+                      "error-container": "#93000a",
+                      "inverse-on-surface": "#303030",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed": "#e3e2e2",
+                      "surface": "#131313",
+                      "surface-container-low": "#1b1b1b",
+                      "primary-fixed": "#ffdad4",
+                      "outline-variant": "#5a403c",
+                      "on-tertiary-container": "#aeaeae",
+                      "on-primary": "#690000",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "on-primary-container": "#ff907f",
+                      "secondary": "#c6c6c7",
+                      "tertiary": "#c7c6c6",
+                      "on-secondary-container": "#b4b5b5",
+                      "on-surface": "#e2e2e2",
+                      "on-surface-variant": "#e3beb8",
+                      "inverse-surface": "#e2e2e2",
+                      "on-primary-fixed": "#410000",
+                      "outline": "#aa8984",
+                      "on-tertiary": "#2f3131",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "stack-lg": "6rem",
+                      "stack-sm": "1rem",
+                      "margin-safe": "4rem",
+                      "stack-md": "3rem"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Space Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "subhead-tech": [
+                              "Space Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Syne"
+                      ],
+                      "headline-lg": [
+                              "Syne"
+                      ],
+                      "display-lg": [
+                              "Syne"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "subhead-tech": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "80px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .vignette {
+            background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.85) 100%);
+            pointer-events: none;
+            z-index: 40;
+        }
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #ffb4a8;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 #93000a;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(66px, 9999px, 86px, 0); }
+            20% { clip: rect(51px, 9999px, 12px, 0); }
+            40% { clip: rect(98px, 9999px, 34px, 0); }
+            60% { clip: rect(21px, 9999px, 76px, 0); }
+            80% { clip: rect(78px, 9999px, 51px, 0); }
+            100% { clip: rect(4px, 9999px, 98px, 0); }
+        }
+        .flicker {
+            animation: flicker 4s infinite;
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.2; }
+        }
+        .redacted-hover:hover {
+            background-color: transparent !important;
+            color: #ffb4a8 !important;
+        }
+        
+        .nav-glitch-hover:hover {
+            animation: glitch-anim-nav 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #ffb4a8;
+            background-color: rgba(139, 0, 0, 0.2);
+        }
+
+        @keyframes glitch-anim-nav {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen relative overflow-x-hidden">
+<!-- Atmospheric Overlays -->
+<div class="fixed inset-0 scanlines"></div>
+<div class="fixed inset-0 vignette"></div>
+<!-- Background Shader -->
+<div class="fixed inset-0 -z-10 opacity-30">
+<!-- STITCH_SHADER_START:ANIMATION_1 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_1" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_1');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Glitch effect logic
+    float jitter = step(0.95, rand(vec2(u_time * 0.1, floor(uv.y * 20.0)))) * 0.01 * sin(u_time * 10.0);
+    uv.x += jitter;
+    
+    // Scanlines
+    float scanline = sin(uv.y * u_resolution.y * 0.8) * 0.04;
+    
+    // Vignette
+    float dist = distance(uv, vec2(0.5));
+    float vignette = smoothstep(0.8, 0.4, dist);
+    
+    // Base color (Black)
+    vec3 color = vec3(0.0);
+    
+    // Subtle red noise/atmosphere
+    float noise = rand(uv + u_time * 0.01) * 0.05;
+    color += vec3(0.02, 0.0, 0.0) + noise;
+    
+    // Combine scanlines and vignette
+    color -= scanline;
+    color *= vignette;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_1 -->
+</div>
+<!-- Navigation Components -->
+<header class="fixed top-0 w-full bg-transparent flex justify-between items-center px-gutter py-4 z-50 flat no shadows text-on-surface font-subhead-tech text-subhead-tech hidden md:flex">
+<div class="font-display-lg text-display-lg text-primary opacity-20 hover:opacity-100 transition-opacity duration-700 flicker hover:scale-105">ALEEYA</div>
+<div class="flex gap-4 items-center">
+<button class="hover:text-primary transition-colors duration-300" id="desktop-menu-toggle">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Hidden by default, triggered via JS if needed, but keeping JSON styling as anchor) -->
+<aside class="fixed left-0 h-full w-80 bg-surface-dim/95 border-r border-outline-variant bg-surface-container-lowest shadow-2xl flex flex-col py-stack-sm z-[60] transform -translate-x-full transition-transform duration-500 font-subhead-tech text-subhead-tech" id="side-nav">
+<div class="px-6 mb-12">
+<h2 class="font-headline-lg text-headline-lg text-primary-container">ALEEYA</h2>
+<p class="text-error-container font-label-sm text-label-sm uppercase tracking-widest mt-2">GO TO SLEEP</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="text-primary-fixed border-l-4 border-primary-container pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4" href="#hero">
+<span class="material-symbols-outlined">visibility</span> OBSERVE
+            </a>
+<a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4" href="#about">
+<span class="material-symbols-outlined">lock</span> REDACTED
+            </a>
+<a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4" href="#school">
+<span class="material-symbols-outlined">edit_note</span> MANIFESTO
+            </a>
+<a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4" href="#contact">
+<span class="material-symbols-outlined">radio_button_unchecked</span> VOID
+            </a>
+<a class="text-on-tertiary-fixed-variant pl-4 nav-glitch-hover transition-all py-3 flex items-center gap-4" href="./05_dunia_gelap_utama.html">
+<span class="material-symbols-outlined">bedtime</span> SLEEP
+            </a>
+</nav>
+<button class="absolute top-4 right-4 text-on-surface hover:text-primary" id="close-nav">
+<span class="material-symbols-outlined">close</span>
+</button>
+</aside>
+<main class="relative z-10 px-margin-safe md:px-margin-safe pb-stack-lg max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col justify-center items-center text-center pt-24 mb-stack-lg" id="hero">
+<h1 class="font-display-lg text-display-lg md:text-[120px] text-on-surface tracking-tighter uppercase glitch-text mb-4" data-text="ALEEYA">
+                ALEEYA
+            </h1>
+<p class="font-label-sm text-label-sm text-error-container tracking-[0.3em] uppercase flicker">
+                Go to Sleep.
+            </p>
+<a class="absolute bottom-12 flex flex-col items-center gap-2 text-on-surface-variant hover:text-primary transition-colors flicker opacity-50" href="#about">
+<span class="font-label-sm text-label-sm tracking-widest">DEEPER</span>
+<span class="material-symbols-outlined text-2xl animate-bounce">keyboard_arrow_down</span>
+</a>
+</section>
+<!-- About Section -->
+<section class="min-h-screen flex items-center py-stack-lg" id="about">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 w-full">
+<div class="col-span-1 md:col-span-4 flex items-start">
+<h2 class="font-subhead-tech text-subhead-tech text-outline uppercase tracking-widest border-l border-primary-container pl-4">WHO AM I?</h2>
+</div>
+<div class="col-span-1 md:col-span-8 bg-surface-container-highest/20 border border-outline-variant p-8 relative overflow-hidden group hover:border-primary-container transition-colors duration-500">
+<div class="absolute inset-0 bg-primary-container/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<p class="font-body-md text-body-md text-on-background mb-6 leading-relaxed relative z-10">
+                        Entity identified as a 16-year-old student. Confined within the parameters of <span class="bg-error-container text-error-container redacted-hover px-1 cursor-crosshair transition-all duration-300 select-none">SMK Paduka Tuan</span>. 
+                        Designation: <span class="font-subhead-tech text-primary">Class 4 SK5</span>.
+                    </p>
+<p class="font-body-md text-body-md text-on-surface-variant relative z-10 opacity-70">
+                        Operating in low-power mode. Processing reality...
+                    </p>
+<div class="mt-8 flex gap-4 flex-wrap z-10 relative">
+<span class="border border-error-container text-error-container font-label-sm text-label-sm px-3 py-1 uppercase">Student</span>
+<span class="border border-error-container text-error-container font-label-sm text-label-sm px-3 py-1 uppercase">Age: 16</span>
+</div>
+</div>
+</div>
+</section>
+<!-- School Life Section -->
+<section class="min-h-screen flex flex-col justify-center py-stack-lg relative" id="school">
+<div class="absolute right-0 top-1/4 w-64 h-64 border border-outline-variant/30 rotate-12 opacity-20 pointer-events-none"></div>
+<div class="max-w-4xl w-full mx-auto relative z-10">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-12 border-b border-outline-variant/50 pb-4 inline-block">INSTITUTION</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="border border-outline-variant p-6 hover:bg-surface-container-high/50 transition-colors group">
+<div class="font-label-sm text-label-sm text-primary-container mb-4 opacity-50 group-hover:opacity-100 group-hover:flicker">LOCATION_DATA</div>
+<h3 class="font-subhead-tech text-subhead-tech text-on-surface mb-2">Segamat, Johor</h3>
+<p class="text-on-surface-variant text-sm opacity-80">Coordinates locked. The physical anchor point in this current iteration.</p>
+</div>
+<div class="border border-outline-variant p-6 hover:bg-surface-container-high/50 transition-colors group">
+<div class="font-label-sm text-label-sm text-primary-container mb-4 opacity-50 group-hover:opacity-100 group-hover:flicker">FACILITY_ID</div>
+<h3 class="font-subhead-tech text-subhead-tech text-on-surface mb-2">SMK Paduka Tuan</h3>
+<p class="text-on-surface-variant text-sm opacity-80">Sector 4 SK5. Daily cycles repeating. Waiting for sequence break.</p>
+</div>
+</div>
+<!-- Image Placeholder -->
+<div class="mt-12 border border-outline-variant h-64 w-full relative overflow-hidden group">
+<div class="bg-cover bg-center w-full h-full grayscale group-hover:grayscale-0 group-hover:sepia transition-all duration-700 opacity-60" data-alt="A bleak, brutalist architectural photograph of an empty, institutional school hallway. High contrast, desaturated with heavy shadows and a single eerie red exit sign glowing in the distance. The mood is unsettling and liminal, fitting a psychological horror aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM5PSgs03NmcREMY_9ZcO93GOV487Bq-bnrZRCNZ6s01RAVEf5jrZHMz43Do7uBe4RP41YdTt3MU5aM6cn__Nz2qKXwiAx9QaNAlO2SWiPGSEjf7tktPzIcelRNcwSnE4q79eJr-I-u09f0K5RrMw1uUjUcPNxhpGqsdXYAyIKxYe6uvFEGGMgxkJdNX_uVdjYeI9Hk3beSKQ-Kk_BkrrsgO7DSE2sJ-9SiQTAakgZgAWQ9n0fzJgyIA2H_KmKqluHftzqbg6cxp4')"></div>
+<div class="absolute inset-0 bg-background/40 mix-blend-multiply group-hover:bg-primary-container/20 transition-colors"></div>
+<span class="absolute bottom-4 left-4 font-label-sm text-label-sm text-on-surface bg-background/80 px-2 border border-outline-variant">SURVEILLANCE_CAM_04</span>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="min-h-screen flex flex-col md:flex-row items-center justify-center gap-8 py-stack-lg" id="contact">
+<div class="w-full max-w-lg border border-outline-variant bg-surface-container-low/80 p-8 shadow-2xl relative">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary-container"></div>
+<h2 class="font-subhead-tech text-subhead-tech text-on-surface mb-8 glitch-text" data-text="LEAVE A MESSAGE">LEAVE A MESSAGE</h2>
+<form class="flex flex-col gap-8">
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors" id="identifier" placeholder="Identifier" type="text"/>
+<label class="absolute left-0 top-2 font-label-sm text-label-sm text-on-surface-variant peer-focus:-top-4 peer-focus:text-primary-container peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="identifier">Identifier</label>
+</div>
+<div class="relative group">
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary-container focus:ring-0 text-on-surface font-body-md py-2 px-0 peer placeholder-transparent transition-colors resize-none" id="transmission" placeholder="Transmission" rows="4"></textarea>
+<label class="absolute left-0 top-2 font-label-sm text-label-sm text-on-surface-variant peer-focus:-top-4 peer-focus:text-primary-container peer-focus:text-xs transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm" for="transmission">Transmission Log</label>
+</div>
+<button class="border border-outline-variant text-on-surface font-subhead-tech text-subhead-tech py-4 px-6 hover:bg-primary-container hover:text-white transition-all duration-300 uppercase tracking-widest mt-4 self-end relative overflow-hidden group/btn" type="button">
+<span class="relative z-10 group-hover/btn:animate-[glitch-anim-nav_0.2s_infinite]">SEND TO VOID</span>
+</button>
+</form>
+</div>
+<!-- QR Code Card -->
+<div class="w-full max-w-xs border border-outline-variant bg-[#0c0c0c] p-8 shadow-2xl relative flex flex-col items-center justify-center group hover:border-primary transition-colors duration-300">
+  <div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+  <p class="font-label-mono text-[10px] text-error mb-4 tracking-widest uppercase text-center animate-pulse">SCAN TO UNLOCK HER TRUTH</p>
+  <div class="p-2 bg-black border border-outline-variant relative group-hover:border-error transition-colors duration-300">
+    <img id="qr-code-img" class="w-40 h-40 filter contrast-125 brightness-90 border border-[#222]" src="" alt="Horror QR Code" />
+  </div>
+  <p class="font-label-mono text-[9px] text-on-surface-variant/40 mt-4 text-center break-all leading-normal uppercase">
+    Warning: Scanning may initiate terminal sync.
+  </p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-md border-t border-outline-variant/30 bg-background flex flex-col items-center justify-center space-y-4 font-label-sm text-label-sm text-on-secondary-fixed-variant relative z-50">
+<p class="uppercase tracking-widest text-on-surface">© 2024 THE VOID STARETH BACK</p>
+<div class="flex gap-4">
+<a class="text-on-secondary-fixed-variant hover:text-error transition-colors opacity-50 hover:opacity-100" href="#">Terms of Silence</a>
+<a class="text-on-secondary-fixed-variant hover:text-error transition-colors opacity-50 hover:opacity-100" href="#">Privacy Decay</a>
+</div>
+</footer>
+<script>
+        // Simple script to handle side nav toggle
+        const menuBtn = document.getElementById('desktop-menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const closeBtn = document.getElementById('close-nav');
+
+        function toggleNav() {
+            sideNav.classList.toggle('-translate-x-full');
+        }
+
+        if(menuBtn) menuBtn.addEventListener('click', toggleNav);
+        if(closeBtn) closeBtn.addEventListener('click', toggleNav);
+        
+        // Random glitch effect on redacted text
+        const redactedElements = document.querySelectorAll('.redacted-hover');
+        setInterval(() => {
+            redactedElements.forEach(el => {
+                if(Math.random() > 0.95) {
+                    el.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+                    setTimeout(() => el.style.transform = 'translate(0,0)', 50);
+                }
+            });
+        }, 100);
+
+        // Load QR Code dynamically pointing to the Dark World page
+        document.addEventListener('DOMContentLoaded', () => {
+            const qrImg = document.getElementById('qr-code-img');
+            if (qrImg) {
+                const currentUrl = window.location.href;
+                const baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+                const targetUrl = baseUrl + '/05_dunia_gelap_utama.html';
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=8b0000&bgcolor=0a0a0a&data=${encodeURIComponent(targetUrl)}`;
+            }
+        });
+    </script>
+</body></html>

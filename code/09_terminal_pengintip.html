@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TERMINAL PENGINTIP // ALEEYA</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#891d12", "on-primary-fixed": "#410000", "tertiary-fixed-dim": "#ffb4a8",
+                        "on-secondary-fixed": "#1b1c1c", "surface-container-low": "#1c1b1b", "primary-container": "#8b0000",
+                        "secondary-container": "#474747", "secondary": "#c8c6c6", "error-container": "#93000a",
+                        "tertiary": "#ffb4a8", "tertiary-container": "#83180e", "on-secondary-fixed-variant": "#474747",
+                        "surface-container": "#201f1f", "outline-variant": "#5a403c", "surface-variant": "#353534",
+                        "on-primary-container": "#ff907f", "tertiary-fixed": "#ffdad4", "on-tertiary-fixed": "#410000",
+                        "on-primary": "#690000", "on-surface-variant": "#e3beb8", "primary-fixed-dim": "#ffb4a8",
+                        "on-error": "#690005", "outline": "#aa8984", "surface-container-lowest": "#0e0e0e",
+                        "surface-container-high": "#2a2a2a", "on-surface": "#e5e2e1", "error": "#ffb4ab",
+                        "on-tertiary-container": "#ff9080", "on-background": "#e5e2e1", "surface-dim": "#131313",
+                        "primary-fixed": "#ffdad4", "on-primary-fixed-variant": "#920703", "on-secondary-container": "#b6b5b4",
+                        "surface-tint": "#ffb4a8", "on-tertiary": "#680201", "on-secondary": "#303030", "surface": "#131313",
+                        "inverse-surface": "#e5e2e1", "on-error-container": "#ffdad6", "surface-bright": "#3a3939",
+                        "primary": "#ffb4a8", "inverse-on-surface": "#313030", "secondary-fixed-dim": "#c8c6c6",
+                        "background": "#131313", "surface-container-highest": "#353534", "inverse-primary": "#b52619",
+                        "secondary-fixed": "#e4e2e1"
+                    },
+                    borderRadius: { "DEFAULT": "0", "lg": "0", "xl": "0", "full": "0" },
+                    spacing: { "unit": "4px", "gutter": "24px", "margin-edge": "40px", "container-max": "1200px" },
+                    fontFamily: {
+                        "body-lg": ["Hanken Grotesk"], "label-mono": ["JetBrains Mono"], "headline-sm": ["Syne"],
+                        "body-md": ["Hanken Grotesk"], "display-lg-mobile": ["Syne"], "headline-md": ["Syne"], "display-lg": ["Syne"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "label-mono": ["14px", { lineHeight: "1.4", letterSpacing: "0.1em", fontWeight: "500" }],
+                        "headline-sm": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "display-lg-mobile": ["40px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "headline-md": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+                        "display-lg": ["64px", { lineHeight: "1.1", letterSpacing: "-0.04em", fontWeight: "800" }]
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 6px 100%;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, transparent 30%, #000000 95%);
+            z-index: 9998;
+            pointer-events: none;
+        }
+
+        .glitch-anim {
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px,0) skew(0deg); }
+            4%, 60% { transform: translate(-2px,0) skew(0deg); }
+            62% { transform: translate(0,0) skew(5deg); }
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: theme('colors.primary');
+            animation: blink 1s step-end infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .flicker-anim {
+            animation: flicker 0.15s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .cyber-border {
+            border: 1px solid theme('colors.surface-variant');
+            position: relative;
+        }
+        .cyber-border::before {
+            content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border: 1px solid theme('colors.primary');
+            opacity: 0.1; pointer-events: none;
+        }
+        .cyber-border:hover::before { opacity: 0.5; }
+    </style>
+</head>
+<body class="font-body-md h-screen flex flex-col pt-24 pb-24 relative selection:bg-primary-container selection:text-on-primary-container">
+<div class="crt-overlay"></div>
+<div class="vignette"></div>
+
+<header class="bg-surface/80 backdrop-blur-sm fixed top-0 w-full bg-surface-container-low/50 flex justify-between items-center px-margin-edge py-unit w-full z-50">
+<div class="font-display-lg text-display-lg-mobile text-primary animate-pulse tracking-tighter">ALEEYA</div>
+<div class="text-on-surface-variant hover:text-primary hover:skew-x-2 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center px-gutter md:px-margin-edge relative z-10">
+<div class="w-full max-w-container-max bg-surface-container-lowest cyber-border p-6 md:p-12 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-surface-variant">
+<div class="h-full bg-primary flicker-anim w-[73%]"></div>
+</div>
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-1/3 shrink-0 relative">
+<div class="cyber-border p-2 bg-surface-dim relative overflow-hidden group-hover:bg-primary-container transition-colors duration-700">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 mix-blend-overlay z-10 transition-opacity"></div>
+<img class="w-full h-auto aspect-square object-cover grayscale mix-blend-luminosity opacity-80 filter contrast-150 brightness-75" data-alt="A photo of 15-year-old Muhammad Amiruddin Arsyad bin Sahlan standing in front of an open car hood." src="./photos/amiruddin.jpg"/>
+<div class="absolute bottom-2 right-2 text-primary font-label-mono text-label-mono z-20">
+<span class="material-symbols-outlined glitch-anim" style="font-size: 16px;">visibility</span>
+                            CAM_04
+                        </div>
+</div>
+</div>
+<div class="w-full md:w-2/3 flex flex-col gap-6 font-label-mono text-label-mono text-secondary">
+<div class="border-b border-surface-variant pb-2 mb-4">
+<h1 class="text-primary font-headline-md md:font-display-lg text-display-lg-mobile glitch-anim tracking-tighter uppercase mb-2">
+                            TERMINAL PENGINTIP //
+                        </h1>
+<h2 class="text-error uppercase tracking-widest text-sm">SASARAN: AMIRUDDIN ARSYAD</h2>
+</div>
+<div class="whitespace-pre-wrap leading-relaxed min-h-[200px]" id="terminal-output"></div>
+<div class="mt-8 flex items-center gap-4 text-outline-variant">
+<span class="material-symbols-outlined animate-pulse-fast">warning</span>
+<span>BREACH STATUS: IN PROGRESS [████████░░]</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="w-full py-12 px-margin-edge flex flex-col items-center gap-4 bg-surface-dim bg-surface-container-high relative z-10 mb-16">
+<div class="font-headline-sm text-headline-sm text-primary">ALEEYA</div>
+<div class="flex gap-6 font-label-mono text-label-mono">
+<a class="text-outline hover:text-error hover:line-through transition-colors" href="#">Terms of Silence</a>
+<a class="text-outline hover:text-error hover:line-through transition-colors" href="#">Privacy Breach</a>
+<a class="text-outline hover:text-error hover:line-through transition-colors" href="#">Data Void</a>
+</div>
+<div class="text-tertiary font-label-mono text-label-mono mt-4 opacity-50">© 2024 ERROR_DATA_CORRUPT</div>
+</footer>
+<nav class="bg-surface-container-lowest fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe bg-surface-container-lowest">
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all" href="./05_dunia_gelap_utama.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<span class="font-label-mono text-label-mono text-[10px] mt-1">Observe</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary scale-110 transition-all" href="./10_profil_tentang_saya.html">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-label-mono text-label-mono text-[10px] mt-1">Redacted</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all" href="./08_sekolah_saya.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-mono text-label-mono text-[10px] mt-1">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 transition-all" href="./11_hubungi_galeri.html">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-mono text-label-mono text-[10px] mt-1">Whispers</span>
+</a>
+</nav>
+<script>
+        const terminalOutput = document.getElementById('terminal-output');
+        const content = `> BYPASSING CLOUDFLARE SHIELD... SUCCESS.
+> ACCESSING PORT: AMIRSYS-DEV/3DPORTO... COMPLETED.
+> DECRYPTING DOSSIER... SUCCESS.
+
+[SASARAN INDIVIDU]
+- Nama: Muhammad Amiruddin Arsyad bin Sahlan (okyimfine / Mr. Arsyad)
+- Umur: 15 tahun (Budak ni code dari umur 9 tahun mat... dah 8 tahun self-taught. Padu gila.)
+- Lokasi: Segamat, Johor, Malaysia (Coordinates locked. Aku tahu kau kat mana.)
+- Sekolah: SMK Paduka Tuan (Science Stream, Kelas 4 SK5. Plan masuk KV 2027.)
+- Hubungan Digital: GitHub @AmirSys-dev, Telegram @mraseas, Twitter @arsyad_dev.
+
+[RIG DALAM BILIK DIA (X79 Xeon Server)]
+- CPU: Intel Xeon @ 2.40GHz (12 Cores / 24 Threads). Banyak gila threads mat.
+- RAM: 32 GB DDR3 ECC (Server uptime dah 247 hari... gila dia tak pernah shutdown ke?)
+- OS: Debian Linux (Debian x86_64).
+- Pipeline Network: WireGuard VPN, Cloudflared Tunnel, AdGuard Home DNS, Nginx Reverse Proxy.
+- Dashboard Panel: Pterodactyl (untuk game server) & Kubernetes container orchestration.
+
+[PROJECTS DATABASE SCRAPED]
+1. Web-Security-Toolkit (2024)
+   - Modular web auditing tools (Python, Node.js). Scan CORS, header misconfiguration, endpoints.
+2. Cexi-Drive (2024)
+   - Google Drive clone (Next.js, TypeScript, React, MySQL). Backend storage kat VPS server dia sendiri.
+3. CPanel-Management-Engine (2023)
+   - Automate backup, subdomains, SSL certificate creation pakai API.
+4. BotProtect-Telegram-Bot (2024)
+   - Telegram group security bot (Node.js, MongoDB). Detect file upload, ban malware, auto-mute.
+5. MC-Hosting (2023)
+   - Minecraft hosting dashboard atas VPS Linux. Monitor live RAM/CPU & auto-backup world.
+
+[SIJIL & TRACK RECORD]
+- freeCodeCamp: Responsive Web Design, JS Algorithms, Front-End Libraries.
+- MinnaLearn & Uni of Helsinki: Elements of AI (2 ECTS) [Sijil tamat: 29 Jun 2026].
+- Google Cloud Arcade: Voyage - Identity Management & Pre-trained AI APIs (2026).
+- Line of code bertulis: 33,000+ LoC.
+- TeleOps Suite active users: 1,200+ monthly.
+
+> AMARAN: Target tengah aktif compile code.
+> Dia macam perasan connection ni...
+> Sistem security BotProtect dia dah start track IP kita.
+> WEH JAP, APAHAL WEBCAM AKU TIBATIBA MENYALA??
+> ADA ORANG TANDAKAN LOKASI AKU.
+> DISCONNECTING NOW... SUCCESS.
+
+[STATUS SASARAN]: <span class="text-primary font-bold animate-pulse">BEING OBSERVED. ALWAYS.</span>`;
+
+        let i = 0;
+        let isTag = false;
+        let text = "";
+
+        function typeWriter() {
+            if (i < content.length) {
+                const char = content.charAt(i);
+                if (char === '<') isTag = true;
+                if (char === '>') isTag = false;
+                
+                text += char;
+                if (text.endsWith("WEBCAM AKU TIBATIBA MENYALA??")) {
+                    triggerWebcamGlitch();
+                }
+                
+                if(!isTag && Math.random() > 0.8 && char.match(/[a-z]/i)) {
+                    terminalOutput.innerHTML = text.slice(0,-1) + '<span class="opacity-50 blur-[1px]">' + String.fromCharCode(Math.floor(Math.random() * 26) + 97) + '</span><span class="terminal-cursor"></span>';
+                    setTimeout(() => {
+                        terminalOutput.innerHTML = text + '<span class="terminal-cursor"></span>';
+                        i++;
+                        setTimeout(typeWriter, Math.random() * 50 + 20);
+                    }, 50);
+                } else {
+                    terminalOutput.innerHTML = text + '<span class="terminal-cursor"></span>';
+                    i++;
+                    let delay = isTag ? 0 : Math.random() * 50 + 10;
+                    if(char === '\n') delay = 300;
+                    setTimeout(typeWriter, delay);
+                }
+            }
+        }
+
+        function triggerWebcamGlitch() {
+            const glitchOverlay = document.getElementById('webcam-glitch');
+            if (glitchOverlay) {
+                glitchOverlay.style.opacity = '1';
+                document.body.style.filter = "invert(100%)";
+                setTimeout(() => {
+                    glitchOverlay.style.opacity = '0';
+                    document.body.style.filter = "none";
+                }, 400);
+            }
+        }
+
+        setTimeout(typeWriter, 1000);
+    </script>
+    
+    <!-- Webcam Glitch Jumpscare Overlay -->
+    <div id="webcam-glitch" class="fixed inset-0 w-full h-full bg-black z-[9999] opacity-0 pointer-events-none transition-opacity duration-75 flex items-center justify-center">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDurY198QJFbuKoS2f7cNMPP6fCB6aHH0sbYRKyboSscIgTqvqLlYBkXW4496JAFucZfZ9fvlCx8xgt0kCSMxNFkh4bE5p99tRr7KvZKe8sKVuF-6ZN_CTTBQ7qFePntgh6FIh27kCrk6Sh2fLGssJip7h1SPJ4wfUTvErP_z0SegzztMQKsPeW7uiKSV2ocql1IrvbjGBIfyhJr6dMUr5vYcuokwHsH-1oVYDwKkK2SEmaIAtJt5_nXBvH5_v-0PCzNDnmCycChM8'); filter: contrast(300%) grayscale(100%) invert(100%); background-size: cover; background-position: center;"></div>
+      <div class="absolute inset-0 bg-red-950/50 mix-blend-color"></div>
+    </div>
+</body></html>

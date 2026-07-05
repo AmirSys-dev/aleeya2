@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Dossier - Classified</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400&amp;family=JetBrains+Mono:wght@500&amp;family=Syne:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Syne:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "surface": "#131313",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary": "#690000",
+                        "on-secondary": "#303030",
+                        "on-tertiary-container": "#ff9080",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#ffb4a8",
+                        "outline": "#aa8984",
+                        "on-error-container": "#ffdad6",
+                        "background": "#131313",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-tertiary-fixed-variant": "#891d12",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-variant": "#353534",
+                        "tertiary-fixed": "#ffdad4",
+                        "on-error": "#690005",
+                        "on-background": "#e5e2e1",
+                        "primary": "#ffb4a8",
+                        "on-secondary-fixed-variant": "#474747",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "secondary-container": "#474747",
+                        "on-surface-variant": "#e3beb8",
+                        "surface-container-highest": "#353534",
+                        "surface-bright": "#3a3939",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-container": "#201f1f",
+                        "outline-variant": "#5a403c",
+                        "on-primary-container": "#ff907f",
+                        "surface-tint": "#ffb4a8",
+                        "on-tertiary": "#680201",
+                        "primary-container": "#8b0000",
+                        "primary-fixed": "#ffdad4",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-secondary-container": "#b6b5b4",
+                        "secondary": "#c8c6c6",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-tertiary-fixed": "#410000",
+                        "on-primary-fixed": "#410000",
+                        "on-primary-fixed-variant": "#920703",
+                        "inverse-primary": "#b52619",
+                        "tertiary-container": "#83180e",
+                        "on-surface": "#e5e2e1",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-edge": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-sm": ["Syne"],
+                        "headline-md": ["Syne"],
+                        "display-lg-mobile": ["Syne"],
+                        "display-lg": ["Syne"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-mono": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+        
+        .vignette-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 30%, #000000 100%);
+            z-index: 40;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 41;
+            opacity: 0.3;
+        }
+
+        .glitch-hover:hover {
+            animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .flicker {
+            animation: flicker-anim 3s infinite;
+        }
+
+        @keyframes flicker-anim {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+        }
+
+        .typewriter-text {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #ffb4a8;
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ffb4a8; }
+        }
+        
+        .eyes-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 30;
+            opacity: 0.5;
+        }
+        
+        .eye {
+            width: 24px;
+            height: 12px;
+            background: #000;
+            border: 1px solid #ffb4a8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pupil {
+            width: 6px;
+            height: 6px;
+            background: #ffb4a8;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.1s;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary">
+<div class="vignette-overlay"></div>
+<div class="scanlines"></div>
+<!-- STITCH_SHADER_START:ANIMATION_8 class="fixed inset-0 w-full h-full z-0 opacity-20 pointer-events-none" -->
+<div class="fixed inset-0 w-full h-full z-0 opacity-20 pointer-events-none" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_8" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_8');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+float rand(vec2 co) {
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Glitch effect logic - subtle horizontal shifts
+    float jitter = step(0.98, rand(vec2(u_time * 0.2, floor(uv.y * 50.0)))) * 0.005 * sin(u_time * 20.0);
+    uv.x += jitter;
+    
+    // Scanlines
+    float scanline = sin(uv.y * u_resolution.y * 1.2) * 0.06;
+    
+    // Pulsating Blood Vignette
+    float dist = distance(uv, vec2(0.5));
+    float pulse = 0.5 + 0.5 * sin(u_time * 0.8);
+    float vignette = smoothstep(0.9 - (pulse * 0.05), 0.4, dist);
+    
+    // Base color (Black)
+    vec3 color = vec3(0.0);
+    
+    // Red atmosphere/noise
+    float noise = rand(uv + u_time * 0.01) * 0.04;
+    vec3 redTint = vec3(0.1, 0.0, 0.0) * pulse;
+    color += redTint + noise;
+    
+    // Combine scanlines and vignette
+    color -= scanline;
+    color *= vignette;
+    
+    // Chromatic Aberration - subtle red/blue split on the edges
+    float r = texture2D(u_resolution.xy > 0.0 ? vec2(0.0) : uv, uv + vec2(0.002, 0.0)).r; // Placeholder logic for color shift
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_8 -->
+<div class="eyes-container hidden md:flex" id="creepyEyes">
+<div class="eye"><div class="pupil"></div></div>
+<div class="eye"><div class="pupil"></div></div>
+</div>
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-sm fixed top-0 w-full bg-surface-container-low/50 flex justify-between items-center px-margin-edge py-unit z-50">
+<div class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary animate-pulse tracking-tighter flicker">
+            ALEEYA
+        </div>
+<div class="flex items-center gap-4 hidden">
+<!-- Search bar hidden as per JSON -->
+</div>
+<button class="text-on-surface-variant hover:text-primary hover:skew-x-2 transition-transform glitch-hover">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="flex-grow pt-32 pb-32 px-gutter md:px-margin-edge max-w-container-max mx-auto w-full relative z-10 flex flex-col items-center justify-center">
+<div class="w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Profile Section -->
+<div class="col-span-1 md:col-span-5 flex flex-col items-center md:items-start gap-8">
+<div class="relative group border border-[#393939] p-2 bg-surface-container-lowest w-full max-w-sm glitch-hover">
+<img alt="Profile Portrait" class="w-full aspect-square object-cover filter grayscale contrast-125 sepia-[.3] hue-rotate-[-30deg]" src="./photos/aleeya2.jpg"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+</div>
+</div>
+<!-- Dossier Data -->
+<div class="col-span-1 md:col-span-7 flex flex-col justify-center gap-8 pl-0 md:pl-12 border-l-0 md:border-l border-[#393939]">
+<div>
+<h1 class="font-headline-md text-headline-md text-primary mb-2 uppercase tracking-widest border-b border-[#393939] inline-block pb-2">TENTANG SAYA</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant mt-4">&gt;&gt; ACCESSING DIGITAL DOSSIER...</p>
+</div>
+<div class="space-y-6 font-label-mono text-label-mono text-on-surface">
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">NAME:</span>
+<span class="text-primary blur-sm group-hover:blur-none transition-all duration-500">Nur Aleeya Batrisya Binti Nor Azizi (akaun: nur aleya)</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">GENDER:</span>
+<span class="blur-sm group-hover:blur-none transition-all duration-500">Perempuan</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">BIRTHDAY:</span>
+<span class="blur-sm group-hover:blur-none transition-all duration-500">20 Mac 2010 (Umur: 16 Tahun)</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">HEIGHT:</span>
+<span class="blur-sm group-hover:blur-none transition-all duration-500">152 cm</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">WEIGHT:</span>
+<span class="blur-sm group-hover:blur-none transition-all duration-500">41 kg - 53 kg (Ideal BMI)</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">ADDRESS:</span>
+<span class="blur-sm group-hover:blur-none transition-all duration-500">1/32 Jalan Putra, Segamat, Johor</span>
+</div>
+<div class="flex items-start md:items-end gap-4 border-b border-[#393939] pb-2 group">
+<span class="text-on-surface-variant w-24 shrink-0">INTERESTS:</span>
+<span class="text-error blur-sm group-hover:blur-none transition-all duration-500">Creepypasta, Stalking, Math games</span>
+</div>
+</div>
+<div class="mt-8">
+<button onclick="window.location.href='./09_terminal_pengintip.html'" class="bg-primary-container text-[#F5F5F5] font-label-mono text-label-mono px-8 py-4 uppercase tracking-widest hover:animate-[flicker-anim_0.5s_infinite] hover:translate-x-1 transition-all border border-transparent hover:border-primary">
+                        Initiate Override Sequence
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="bg-surface-container-lowest md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-gutter pb-safe border-t-0 shadow-[0_-4px_20px_rgba(0,0,0,0.8)]">
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono" href="./05_dunia_gelap_utama.html">
+<span class="material-symbols-outlined">visibility</span>
+<span class="text-[10px] mt-1">Observe</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary scale-110 transition-all font-label-mono text-label-mono animate-pulse" href="./10_profil_tentang_saya.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-[10px] mt-1 font-bold">Redacted</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono" href="./08_sekolah_saya.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] mt-1">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono" href="./11_hubungi_galeri.html">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="text-[10px] mt-1">Whispers</span>
+</a>
+</nav>
+<!-- SideNav (Visible on Web - Mapped from BottomNavBar logic for desktop) -->
+<nav class="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 flex-col gap-8 px-margin-edge z-50">
+<a class="flex items-center gap-4 text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono group" href="./05_dunia_gelap_utama.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">visibility</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300">Observe</span>
+</a>
+<a class="flex items-center gap-4 text-primary font-bold font-label-mono text-label-mono group" href="./10_profil_tentang_saya.html">
+<span class="material-symbols-outlined scale-125 animate-pulse" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span>Redacted</span>
+</a>
+<a class="flex items-center gap-4 text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono group" href="./08_sekolah_saya.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">inventory_2</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300">Vault</span>
+</a>
+<a class="flex items-center gap-4 text-on-secondary-container opacity-50 hover:text-primary hover:opacity-100 font-label-mono text-label-mono group" href="./11_hubungi_galeri.html">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">record_voice_over</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300">Whispers</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-12 px-margin-edge flex flex-col items-center gap-4 bg-surface-dim bg-surface-container-high relative z-10 border-t border-[#1a1a1a]">
+<div class="font-headline-sm text-headline-sm text-primary flicker">ALEEYA</div>
+<div class="flex gap-8 font-label-mono text-label-mono">
+<a class="text-outline hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Terms of Silence</a>
+<a class="text-outline hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Privacy Breach</a>
+<a class="text-outline hover:text-error hover:line-through transition-colors hover:animate-pulse" href="#">Data Void</a>
+</div>
+<div class="font-label-mono text-label-mono text-tertiary opacity-50">
+            © 2024 ERROR_DATA_CORRUPT
+        </div>
+</footer>
+<script>
+        // Creepy Eyes Cursor Tracking
+        document.addEventListener('mousemove', (e) => {
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach(eye => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                
+                const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+                
+                // Max distance pupil can move
+                const distance = Math.min(6, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 10);
+                
+                const pupilX = Math.cos(angle) * distance;
+                const pupilY = Math.sin(angle) * distance;
+                
+                const pupil = eye.querySelector('.pupil');
+                pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+            });
+        });
+    </script>
+</body></html>
